@@ -1,0 +1,145 @@
+﻿<Window x:Class="SamplePrism.Views.TestLoginWindow01"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SamplePrism.Views"
+        mc:Ignorable="d"
+        Title="TestLoginWindow01" Height="450" Width="800" WindowStyle="None" AllowsTransparency="True">
+    <Window.Resources>
+        <!-- 全局控件样式（可按需调整） -->
+        <Style x:Key="GlassTextBox" TargetType="TextBox">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="Background" Value="#40FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#60FFFFFF"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0,8,0,8"/>
+            <!--<Setter Property="CornerRadius" Value="8"/>-->
+        </Style>
+
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="Height" Value="44"/>
+            <Setter Property="Padding" Value="16,6"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="10" SnapsToDevicePixels="True">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="#6673F0" Offset="0"/>
+                                    <GradientStop Color="#8C6AF6" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <!-- 最外层容器：背景层 + 内容层 -->
+    <Grid x:Name="Root">
+        <!-- 背景：渐变 + 装饰图片（示例用几何/渐变） -->
+        <Grid x:Name="BgGrid">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#4851A3" Offset="0"/>
+                    <GradientStop Color="#7A6FEF" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+
+            <!-- 可替换为图片 -->
+            <Ellipse Width="500" Height="500" Opacity="0.06"
+                     HorizontalAlignment="Left" VerticalAlignment="Top"
+                     Margin="60,40,0,0" Fill="White"/>
+            <Ellipse Width="420" Height="420" Opacity="0.08"
+                     HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                     Margin="0,0,60,40" Fill="White"/>
+        </Grid>
+
+        <!-- 主内容居中布局 -->
+        <Grid Margin="40">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- 左侧预览装饰/文案 -->
+            <StackPanel Grid.Column="0" VerticalAlignment="Center" >
+                <TextBlock Text="Capturing Moments," FontSize="32" FontWeight="Bold" Foreground="#F7F7FF"/>
+                <TextBlock Text="Creating Memories" FontSize="32" FontWeight="Bold" Foreground="#F7F7FF" Margin="0,6,0,0"/>
+                <TextBlock Text="A short tagline or description goes here." Foreground="#E8E8FF" Opacity="0.85" Margin="0,18,0,0"/>
+            </StackPanel>
+
+            <!-- 右侧：毛玻璃面板区域 -->
+            <Grid Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <!-- Panel 背后的取样并模糊 (VisualBrush 取样 BgGrid) -->
+                <Border Width="420" CornerRadius="18" Padding="18" >
+                    <Border.Background>
+                        <!-- 用 VisualBrush 取样背景元素并展示 -->
+                        <VisualBrush Visual="{Binding ElementName=BgGrid}" Stretch="Fill" AlignmentX="Left" AlignmentY="Top"/>
+                    </Border.Background>
+
+                    <!-- 对 Border 应用模糊：这里对整个 Border 做 BlurEffect，
+                         目的是把 VisualBrush 呈现的背景模糊化，达到毛玻璃感觉 -->
+                    <Border.Effect>
+                        <BlurEffect Radius="14"/>
+                    </Border.Effect>
+
+                </Border>
+
+                <!-- 在模糊层上叠加一个半透明的盖层, 再加边框/内阴影来增强毛玻璃质感 -->
+                <Border Width="420" CornerRadius="18" Padding="26" Background="#40FFFFFF" 
+                        BorderBrush="#30FFFFFF" BorderThickness="1"
+                        HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Border.Effect>
+                        <!-- 轻微投影让面板悬浮 -->
+                        <DropShadowEffect Color="#000000" BlurRadius="20" ShadowDepth="6" Opacity="0.25"/>
+                    </Border.Effect>
+
+                    <!-- 面板内部内容 -->
+                    <StackPanel>
+                        <TextBlock Text="Create an account" Foreground="White" FontSize="28" FontWeight="Bold"/>
+
+                        <!-- 表单 -->
+                        <StackPanel Margin="0,18,0,0">
+                            <TextBox Style="{StaticResource GlassTextBox}" Text="Fletcher" />
+                            <!-- 密码用 PasswordBox，外观做成与 TextBox 相近 -->
+                            <PasswordBox Height="38" Padding="10,6" Background="#40FFFFFF" BorderBrush="#60FFFFFF" BorderThickness="1"
+                                         Margin="0,8,0,8" Foreground="White" FontSize="14" />
+
+                            <!-- Checkbox + terms -->
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6,0,12">
+                                <CheckBox IsChecked="True" VerticalAlignment="Center" />
+                                <TextBlock Text="I agree to the Terms Conditions" Foreground="White" Opacity="0.9" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                            </StackPanel>
+
+                            <!-- CTA -->
+                            <Button Style="{StaticResource PrimaryButton}" Content="Create account" Margin="0,6,0,8"/>
+
+                            <!-- 社交登录等小项 -->
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,12,0,0" >
+                                <TextBlock Text="Or register with" Foreground="White" Opacity="0.85" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                                <!-- 简易社交按钮占位 -->
+                                <Border Width="44" Height="36" CornerRadius="8" Background="#30FFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6,0">
+                                    <TextBlock Text="G" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                                </Border>
+                                <Border Width="44" Height="36" CornerRadius="8" Background="#30FFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6,0">
+                                    <TextBlock Text="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                                </Border>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

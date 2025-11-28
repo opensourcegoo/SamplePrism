@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="SamplePrism.Dialog.HelloDiaglogServiceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:local="clr-namespace:SamplePrism.Dialog"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="500">
+    <!--<prism:Dialog.WindowStyle>
+        <Style TargetType="Window">
+            <Setter Property="prism:Dialog.WindowStartupLocation" Value="CenterScreen" />
+            <Setter Property="ResizeMode" Value="NoResize" />
+            <Setter Property="ShowInTaskbar" Value="False" />
+            <Setter Property="SizeToContent" Value="WidthAndHeight" />
+            <Setter Property="WindowStyle" Value="None" />
+        </Style>
+    </prism:Dialog.WindowStyle>-->
+    <Grid Background="#FFDA9090" Width="200" Height="200">
+        <Grid.RowDefinitions>
+            <RowDefinition  />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Button Content="关闭" Command="{Binding CloseDialogCommand}"  HorizontalAlignment="Left" Margin="415,110,0,0" VerticalAlignment="Top" Height="34" Width="63"/>
+    </Grid>
+</UserControl>

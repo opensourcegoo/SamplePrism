@@ -1,0 +1,287 @@
+﻿DIP、ISP、SRP的关系：
+
+
+// ISP: 接口隔离 - 细分接口
+public interface IReadable
+{
+    string Read();
+}
+
+public interface IWritable
+{
+    void Write(string data);
+}
+
+public interface ICacheable
+{
+    void Cache(string key, string value);
+    string GetFromCache(string key);
+}
+
+// 具体实现
+public class FileHandler : IReadable, IWritable
+{
+    public string Read() => File.ReadAllText("data.txt");
+    public void Write(string data) => File.WriteAllText("data.txt", data);
+}
+
+public class DatabaseHandler : IReadable, IWritable, ICacheable
+{
+    public string Read() => "Database data";
+    public void Write(string data) => Console.WriteLine($"Saved to DB: {data}");
+    public void Cache(string key, string value) => Console.WriteLine($"Cached: {key}");
+    public string GetFromCache(string key) => "Cached data";
+}
+
+// DIP: 依赖抽象接口
+public class DataProcessor
+{
+    private readonly IReadable _reader;
+    private readonly IWritable _writer;
+    
+    public DataProcessor(IReadable reader, IWritable writer) // 构造函数注入
+    {
+        _reader = reader;
+        _writer = writer;
+    }
+    
+    public void Process()
+    {
+        var data = _reader.Read();
+        var processed = data.ToUpper();
+        _writer.Write(processed);
+    }
+}
+
+// SRP: 每个类职责单一
+public class User
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Email { get; set; }
+}
+
+// 抽象接口
+public interface IUserValidator
+{
+    bool IsValid(User user);
+}
+
+public interface IUserRepository
+{
+    void Save(User user);
+    User GetById(int id);
+}
+
+public interface IEmailService
+{
+    void SendWelcomeEmail(User user);
+}
+
+// 具体实现 - 每个类职责单一
+public class UserValidator : IUserValidator // SRP: 只负责验证
+{
+    public bool IsValid(User user)
+    {
+        return !string.IsNullOrEmpty(user.Name) && 
+               !string.IsNullOrEmpty(user.Email) &&
+               user.Email.Contains("@");
+    }
+}
+
+public class DatabaseUserRepository : IUserRepository // SRP: 只负责数据操作
+{
+    public void Save(User user)
+    {
+        Console.WriteLine($"User {user.Name} saved to database");
+    }
+    
+    public User GetById(int id)
+    {
+        return new User { Id = id, Name = "Test User", Email = "test@example.com" };
+    }
+}
+
+public class EmailService : IEmailService // SRP: 只负责邮件发送
+{
+    public void SendWelcomeEmail(User user)
+    {
+        Console.WriteLine($"Welcome email sent to {user.Email}");
+    }
+}
+
+// SRP: 每个类职责单一
+public class User
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Email { get; set; }
+}
+
+// 抽象接口
+public interface IUserValidator
+{
+    bool IsValid(User user);
+}
+
+public interface IUserRepository
+{
+    void Save(User user);
+    User GetById(int id);
+}
+
+public interface IEmailService
+{
+    void SendWelcomeEmail(User user);
+}
+
+// 具体实现 - 每个类职责单一
+public class UserValidator : IUserValidator // SRP: 只负责验证
+{
+    public bool IsValid(User user)
+    {
+        return !string.IsNullOrEmpty(user.Name) && 
+               !string.IsNullOrEmpty(user.Email) &&
+               user.Email.Contains("@");
+    }
+}
+
+public class DatabaseUserRepository : IUserRepository // SRP: 只负责数据操作
+{
+    public void Save(User user)
+    {
+        Console.WriteLine($"User {user.Name} saved to database");
+    }
+    
+    public User GetById(int id)
+    {
+        return new User { Id = id, Name = "Test User", Email = "test@example.com" };
+    }
+}
+
+public class EmailService : IEmailService // SRP: 只负责邮件发送
+{
+    public void SendWelcomeEmail(User user)
+    {
+        Console.WriteLine($"Welcome email sent to {user.Email}");
+    }
+}
+
+// DIP: 高层模块依赖抽象
+public class UserService
+{
+    private readonly IUserValidator _validator;
+    private readonly IUserRepository _repository;
+    private readonly IEmailService _emailService;
+    
+    public UserService(IUserValidator validator, 
+                      IUserRepository repository, 
+                      IEmailService emailService) // 依赖注入
+    {
+        _validator = validator;
+        _repository = repository;
+        _emailService = emailService;
+    }
+    
+    public bool RegisterUser(User user)
+    {
+        if (!_validator.IsValid(user))
+        {
+            Console.WriteLine("User validation failed");
+            return false;
+        }
+        
+        _repository.Save(user);
+        _emailService.SendWelcomeEmail(user);
+        return true;
+    }
+}
+
+
+三种联合实现
+// ISP: 细分通知接口
+public interface IEmailNotifier
+{
+    void SendEmail(string message, string recipient);
+}
+
+public interface ISmsNotifier
+{
+    void SendSms(string message, string phoneNumber);
+}
+
+public interface IPushNotifier
+{
+    void SendPushNotification(string message, string deviceId);
+}
+
+// 具体实现
+public class EmailNotifier : IEmailNotifier // SRP: 只处理邮件
+{
+    public void SendEmail(string message, string recipient)
+    {
+        Console.WriteLine($"Email to {recipient}: {message}");
+    }
+}
+
+public class SmsNotifier : ISmsNotifier // SRP: 只处理短信
+{
+    public void SendSms(string message, string phoneNumber)
+    {
+        Console.WriteLine($"SMS to {phoneNumber}: {message}");
+    }
+}
+
+// DIP: 通知管理器依赖抽象
+public class NotificationManager
+{
+    private readonly IEmailNotifier _emailNotifier;
+    private readonly ISmsNotifier _smsNotifier;
+    
+    public NotificationManager(IEmailNotifier emailNotifier, ISmsNotifier smsNotifier)
+    {
+        _emailNotifier = emailNotifier;
+        _smsNotifier = smsNotifier;
+    }
+    
+    public void NotifyUserRegistration(User user)
+    {
+        _emailNotifier.SendEmail("Welcome to our platform!", user.Email);
+        // 只在用户有手机号时发送短信
+        if (!string.IsNullOrEmpty(user.PhoneNumber))
+        {
+            _smsNotifier.SendSms("Registration successful!", user.PhoneNumber);
+        }
+    }
+}
+
+// 使用示例
+public class Program
+{
+    public static void Main()
+    {
+        // 依赖注入容器配置
+        var emailNotifier = new EmailNotifier();
+        var smsNotifier = new SmsNotifier();
+        var validator = new UserValidator();
+        var repository = new DatabaseUserRepository();
+        var emailService = new EmailService();
+        
+        // 组装服务
+        var userService = new UserService(validator, repository, emailService);
+        var notificationManager = new NotificationManager(emailNotifier, smsNotifier);
+        
+        // 使用
+        var user = new User 
+        { 
+            Name = "张三", 
+            Email = "zhangsan@example.com",
+            PhoneNumber = "13800138000"
+        };
+        
+        if (userService.RegisterUser(user))
+        {
+            notificationManager.NotifyUserRegistration(user);
+        }
+    }
+}
