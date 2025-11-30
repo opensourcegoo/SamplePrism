@@ -33,9 +33,23 @@ namespace SamplePrism
 
         protected override Window CreateShell()
         {
-            //var shell = Container.Resolve<TestLoginWindow06>();
-            var shell = Container.Resolve<MainView>();
+            var shell = Container.Resolve<MainWindow>();
             return shell;
+        }
+
+        //protected override void OnInitialized()
+        //{
+        //    base.OnInitialized();
+        //    // Shell 已创建，容器可用，区域一般也已注册
+        //    var regionManager = Container.Resolve<IRegionManager>();
+        //    regionManager.RequestNavigate("MainRegion", "MainView");
+        //}
+
+        protected override void Initialize()
+        {
+            base.Initialize();
+            var regionManager = Container.Resolve<IRegionManager>();
+            regionManager.RequestNavigate("MainRegion", "MainView");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -43,6 +57,7 @@ namespace SamplePrism
             containerRegistry.RegisterForNavigation<ViewA>();
             containerRegistry.RegisterForNavigation<ViewB>();
             containerRegistry.RegisterForNavigation<MainView>();
+            //containerRegistry.RegisterForNavigation<MainWindow>();
             containerRegistry.RegisterForNavigation<HomeView>();
             containerRegistry.RegisterForNavigation<DefaultView>();
             containerRegistry.RegisterDialogWindow<MessageDialogHostView>();//注册IDialogWindows类型的窗口
@@ -64,12 +79,10 @@ namespace SamplePrism
         {
             base.ConfigureRegionAdapterMappings(regionAdapterMappings);
             //regionAdapterMappings.RegisterMapping(typeof(System.Windows.Controls.ContentControl),
-
             //regionAdapterMappings.RegisterMapping(typeof(System.Windows.Controls.ContentControl),
             //    new AdvancedAnimatedRegionAdapter(Container.Resolve<IRegionBehaviorFactory>(),
             //        AdvancedAnimatedRegionAdapter.AnimationType.SlideFromRight));
         }
-
 
         protected override void ConfigureViewModelLocator()
         {

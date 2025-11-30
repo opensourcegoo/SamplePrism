@@ -1,4 +1,5 @@
 ﻿using DryIoc;
+using MaterialDesignThemes.Wpf.Transitions;
 using ModuleA.Views;
 using SamplePrism.Views;
 using System;
@@ -9,6 +10,8 @@ using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Threading;
 
 namespace SamplePrism.ViewModels
 {
@@ -30,7 +33,7 @@ namespace SamplePrism.ViewModels
         #endregion
 
 
-        public MainViewModel(IRegionManager regionManager, IContainerExtension containerExtension,IDialogService dialogService)
+        public MainViewModel(IRegionManager regionManager, IContainerExtension containerExtension, IDialogService dialogService)
         {
             _regionManager = regionManager;
             _containerExtension = containerExtension;
@@ -45,15 +48,15 @@ namespace SamplePrism.ViewModels
         {
             #region 构建参数
             var parameter = new DialogParameters();
-            parameter.Add("bian",21);
-            _dialogService.ShowDialog("HelloDiaglogServiceView", parameter,DialogChoseCallBack);
+            parameter.Add("bian", 21);
+            _dialogService.ShowDialog("HelloDiaglogServiceView", parameter, DialogChoseCallBack);
             //_dialogService.shw
             #endregion
         }
 
         private void DialogChoseCallBack()
         {
-            
+
         }
 
         private void LoadDefault(string defaultParam)
@@ -65,7 +68,7 @@ namespace SamplePrism.ViewModels
             #region 2，拿到View和Region再Add (可添加多个view) 使用Activate和Deactivate来激活或关闭区域中的已添加的Views
             _defaultView = _containerExtension.Resolve<DefaultView>();
             _viewA = _containerExtension.Resolve<ViewA>();
-            IRegion mainRegion = _regionManager.Regions["MainRegion"];
+            IRegion mainRegion = _regionManager.Regions["MainViewRegion"];
             if (mainRegion != null)
             {
                 mainRegion.Add(_defaultView);
@@ -84,14 +87,34 @@ namespace SamplePrism.ViewModels
             switch (navPath)
             {
                 case "ViewA":
-                    _regionManager.RequestNavigate("MainRegion", "ViewA", param);
+                    _regionManager.RequestNavigate("MainViewRegion", "ViewA", param);
                     break;
                 case "ViewB":
-                    _regionManager.RequestNavigate("MainRegion", "ViewB", param);
+                    _regionManager.RequestNavigate("MainViewRegion", "ViewB", param);
                     break;
                 default:
                     break;
             }
+
+            
+            //Dispatcher.InvokeAsync(async () =>
+            //{
+            //    await Task.Delay(1);
+            //    MainTransitioner.Content = null;
+            //    MainTransitioner.Content = MainTransitioner.Content; // 强刷一下就又滑了
+            //});
+            //Application.Current.Dispatcher.InvokeAsync(async () =>
+            //{
+            //    await Task.Delay(1); // 等待 Prism 把新 View 塞进去
+            //                         // 找到 MainWindow 里的 TransitioningContent，强行触发一次内容变化
+            //    var d = Application.Current.MainWindow.FindName("MainTransitioner");
+            //    if (Application.Current.MainWindow.FindName("MainTransitioner") is TransitioningContent tc)
+            //    {
+            //        var temp = tc.Content;
+            //        tc.Content = null;
+            //        tc.Content = temp;
+            //    }
+            //});
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
@@ -101,12 +124,12 @@ namespace SamplePrism.ViewModels
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
-            
+
         }
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            
+
         }
     }
 }

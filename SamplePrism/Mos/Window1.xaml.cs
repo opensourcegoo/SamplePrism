@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace SamplePrism.Views
+namespace SamplePrism.MaterialDesign.Mos
 {
     /// <summary>
     /// Window1.xaml 的交互逻辑

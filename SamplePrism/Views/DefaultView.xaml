@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SamplePrism.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -34,7 +35,35 @@
             </ListBox>
         </ScrollViewer>
 
-        <Image Width="200" Height="200" Source="/Images/logo_p.png" VerticalAlignment="Top" />
+        <!--<Button Height="100"  Width="200" Content="123" Panel.ZIndex="2" SnapsToDevicePixels="True" Style="{StaticResource MaterialDesignFlatSecondaryButton}"/>
+        <materialDesign:Card Padding="16"
+                     Margin="10">
+            <StackPanel>
+                <TextBlock Text="设备状态" 
+                   FontSize="18" 
+                   Margin="0 0 0 8"/>
+                <TextBlock Text="运行正常" FontSize="14"/>
+            </StackPanel>
+        </materialDesign:Card>-->
+
+        <materialDesign:Card Padding="32">
+            <StackPanel>
+                <TextBox materialDesign:HintAssist.Hint="用户名"
+                 materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                 Style="{StaticResource MaterialDesignOutlinedTextBox}">
+                    <!--<materialDesign:TextFieldAssist.LeadingIcon>
+                        --><!--<materialDesign:PackIconKind Kind="Home"/>--><!--
+                        <materialDesign:PackIcon Kind="Account"/>
+                    </materialDesign:TextFieldAssist.LeadingIcon>-->
+                </TextBox>
+
+                <Button Content="登录" 
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                Margin="0,16,0,0"/>
+            </StackPanel>
+        </materialDesign:Card>
+
+        <!--<Image Width="200" Height="200" Source="/Images/logo_p.png" VerticalAlignment="Top" />-->
 
     </Grid>
 </UserControl>

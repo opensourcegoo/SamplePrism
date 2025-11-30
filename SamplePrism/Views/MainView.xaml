@@ -1,4 +1,4 @@
-﻿<Window x:Class="SamplePrism.Views.MainView"
+﻿<UserControl x:Class="SamplePrism.Views.MainView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,31 +7,71 @@
         xmlns:prism="http://prismlibrary.com/"
         xmlns:core="clr-namespace:SamplePrism.Core"
         xmlns:behavior="http://schemas.microsoft.com/xaml/behaviors"
-        mc:Ignorable="d"
-        Title="MainView" Height="450" Width="800">
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d" Width="1200" Height="900">
+
+    <!--<WindowChrome.WindowChrome>
+        <WindowChrome 
+            CaptionHeight="0"
+            ResizeBorderThickness="10"
+            GlassFrameThickness="0"
+            CornerRadius="0"
+            UseAeroCaptionButtons="False"/>
+    </WindowChrome.WindowChrome>-->
     <behavior:Interaction.Triggers>
         <behavior:EventTrigger EventName="Loaded">
             <prism:InvokeCommandAction Command="{Binding LoadCommand}" CommandParameter="DefaultView" />
         </behavior:EventTrigger>
     </behavior:Interaction.Triggers>
-    <Grid>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Row="0" Grid.Column="0"  Width="130">
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="40" Background="#FFE98B8B">
+
+        </Grid>
+        <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="0"  Width="230">
             <Expander Header="basic">
-                <StackPanel Margin="0,0,0,0" HorizontalAlignment="Left">
-                    <Button Content="Nav-A" Command="{Binding NavigateCommand}" CommandParameter="ViewA" Width="130" Height="30"  />
-                    <Button Content="Nav-B" Command="{Binding NavigateCommand}" CommandParameter="ViewB" Width="130" Height="30"/>
-                    <Button Content="DialogSevice" Command="{Binding DialogSeviceCommand}" CommandParameter="ViewB" Width="130" Height="30"/>
-                    <Button Content="ActiveDeactive" Command="{Binding ActivationDeactivationCommand}" Width="130" Height="30" />
-                    <Button Content="CanExcute" Command="{Binding CanExcuteCommand}" Width="130" Height="25" />
+                <StackPanel Margin="0,0,0,0" HorizontalAlignment="Stretch">
+
+                    <Button Content="Nav-A" Command="{Binding NavigateCommand}" CommandParameter="ViewA" />
+                    <Button Content="Nav-B" Command="{Binding NavigateCommand}" CommandParameter="ViewB"  Height="30"/>
+                    <Button Content="DialogSevice" Command="{Binding DialogSeviceCommand}" CommandParameter="ViewB"  Height="30"/>
+                    <Button Content="ActiveDeactive" Command="{Binding ActivationDeactivationCommand}" Height="30" />
+                    <Button Content="CanExcute" Command="{Binding CanExcuteCommand}"  Height="25" />
                 </StackPanel>
             </Expander>
         </StackPanel>
-        <UserControl Grid.Column="1" prism:RegionManager.RegionName="MainRegion" core:RegionAnimation.Enable="True" >
-            
-        </UserControl>
+
+        <!--<materialDesign:Transitioner SelectedIndex="0" Grid.Row="1" Grid.Column="1"  Transition="{x:Static materialDesign:TransitioningContentSlideAndFadeTransition}" Margin="0,64,0,0">
+            <materialDesign:Transitioner.Items>
+                -->
+        <!-- 默认首页 -->
+        <!--
+                <materialDesign:TransitionerSlide>
+                    <ContentControl prism:RegionManager.RegionName="MainViewRegion" />
+                </materialDesign:TransitionerSlide>
+            </materialDesign:Transitioner.Items>
+        </materialDesign:Transitioner>-->
+
+        <materialDesign:TransitioningContent Grid.Row="1"  Grid.Column="1"  Margin="0,0,0,0" >
+            <materialDesign:TransitioningContent.OpeningEffect>
+                <materialDesign:TransitionEffect Kind="SlideInFromRight" Duration="0:0:0.6" />
+                <!--<materialDesign:TransitionEffect Kind="FadeIn" />-->
+            </materialDesign:TransitioningContent.OpeningEffect>
+            <!--<materialDesign:TransitioningContent.ClosingEffect>
+                <materialDesign:TransitionEffect Kind="SlideOutToLeft" />
+                <materialDesign:TransitionEffect Kind="FadeOut" />
+            </materialDesign:TransitioningContent.ClosingEffect>-->
+            <ContentControl prism:RegionManager.RegionName="MainViewRegion" />
+        </materialDesign:TransitioningContent>
+        <!--<UserControl Grid.Row="1" Grid.Column="1" prism:RegionManager.RegionName="MainViewRegion" core:RegionAnimation.Enable="True">
+
+        </UserControl>-->
     </Grid>
-</Window>
+</UserControl>
