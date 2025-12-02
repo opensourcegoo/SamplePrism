@@ -8,16 +8,9 @@
         xmlns:core="clr-namespace:SamplePrism.Core"
         xmlns:behavior="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d" Width="1200" Height="900">
+        mc:Ignorable="d"  d:DesignWidth="1200" d:DesignHeight="900">
 
-    <!--<WindowChrome.WindowChrome>
-        <WindowChrome 
-            CaptionHeight="0"
-            ResizeBorderThickness="10"
-            GlassFrameThickness="0"
-            CornerRadius="0"
-            UseAeroCaptionButtons="False"/>
-    </WindowChrome.WindowChrome>-->
+
     <behavior:Interaction.Triggers>
         <behavior:EventTrigger EventName="Loaded">
             <prism:InvokeCommandAction Command="{Binding LoadCommand}" CommandParameter="DefaultView" />
@@ -32,19 +25,51 @@
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="40" Background="#FFE98B8B">
+        <Grid Grid.Row="0" Grid.Column="0" x:Name="a123" Grid.ColumnSpan="2" Height="40" Background="#6200EE">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Sample Prism Application" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="16" Foreground="White" />
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" WindowChrome.IsHitTestVisibleInChrome="True">
+                <Button  Style="{StaticResource MaterialDesignToolButton}" Command="{x:Static SystemCommands.MinimizeWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window,Mode=FindAncestor}}">
+                    <materialDesign:PackIcon Kind="WindowMinimize" HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="White" Width="20" Height="20" />
+                </Button>
 
+                <Button  Style="{StaticResource MaterialDesignToolButton}" Command="{x:Static SystemCommands.MaximizeWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window,Mode=FindAncestor}}">
+                    <materialDesign:PackIcon Kind="WindowMaximize" HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="White" Width="20" Height="20" />
+                </Button>
+
+                <Button  Style="{StaticResource MaterialDesignToolButton}" Command="{x:Static SystemCommands.RestoreWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window,Mode=FindAncestor}}">
+                    <materialDesign:PackIcon Kind="WindowRestore" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Width="20" Height="20" />
+                </Button>
+                
+                <Button  Style="{StaticResource MaterialDesignToolButton}" Command="{x:Static SystemCommands.CloseWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window,Mode=FindAncestor}}">
+                    <materialDesign:PackIcon Kind="WindowClose" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Width="20" Height="20" />
+                </Button>
+            </StackPanel>
+            <!--<StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0">
+                <Button Content="Minimize" Command="{Binding MinimizeCommand}" Width="80" Height="25" Margin="5,0"/>
+                <Button Content="Maximize" Command="{Binding MaximizeCommand}" Width="80" Height="25" Margin="5,0"/>
+                <Button Content="Close" Command="{Binding CloseCommand}" Width="80" Height="25" Margin="5,0"/>
+            </StackPanel>-->
         </Grid>
         <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="0"  Width="230">
             <Expander Header="basic">
-                <StackPanel Margin="0,0,0,0" HorizontalAlignment="Stretch">
-
+                <!--<StackPanel Margin="0,0,0,0" HorizontalAlignment="Stretch">
                     <Button Content="Nav-A" Command="{Binding NavigateCommand}" CommandParameter="ViewA" />
                     <Button Content="Nav-B" Command="{Binding NavigateCommand}" CommandParameter="ViewB"  Height="30"/>
                     <Button Content="DialogSevice" Command="{Binding DialogSeviceCommand}" CommandParameter="ViewB"  Height="30"/>
                     <Button Content="ActiveDeactive" Command="{Binding ActivationDeactivationCommand}" Height="30" />
                     <Button Content="CanExcute" Command="{Binding CanExcuteCommand}"  Height="25" />
-                </StackPanel>
+                </StackPanel>-->
+                <ListBox ItemsSource="{Binding MenuItems}" SelectedItem="{Binding SelectedMenuItem}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="MenuItem">
+                            <Button Content="{Binding Title}" Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding ViewName}"  Height="40" Margin="5"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </Expander>
         </StackPanel>
 
@@ -59,7 +84,7 @@
             </materialDesign:Transitioner.Items>
         </materialDesign:Transitioner>-->
 
-        <materialDesign:TransitioningContent Grid.Row="1"  Grid.Column="1"  Margin="0,0,0,0" >
+        <materialDesign:TransitioningContent Grid.Row="1"  Grid.Column="1"  Margin="0,0,0,0"  prism:RegionManager.RegionName="MainViewRegion" >
             <materialDesign:TransitioningContent.OpeningEffect>
                 <materialDesign:TransitionEffect Kind="SlideInFromRight" Duration="0:0:0.6" />
                 <!--<materialDesign:TransitionEffect Kind="FadeIn" />-->
@@ -68,8 +93,9 @@
                 <materialDesign:TransitionEffect Kind="SlideOutToLeft" />
                 <materialDesign:TransitionEffect Kind="FadeOut" />
             </materialDesign:TransitioningContent.ClosingEffect>-->
-            <ContentControl prism:RegionManager.RegionName="MainViewRegion" />
+            <!--<ContentControl prism:RegionManager.RegionName="MainViewRegion" />-->
         </materialDesign:TransitioningContent>
+
         <!--<UserControl Grid.Row="1" Grid.Column="1" prism:RegionManager.RegionName="MainViewRegion" core:RegionAnimation.Enable="True">
 
         </UserControl>-->

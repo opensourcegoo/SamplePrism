@@ -1,6 +1,7 @@
 ﻿using DryIoc;
 using MaterialDesignThemes.Wpf.Transitions;
 using ModuleA.Views;
+using Prism.Navigation.Regions;
 using SamplePrism.Views;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Threading;
 
 namespace SamplePrism.ViewModels
@@ -28,8 +30,16 @@ namespace SamplePrism.ViewModels
         #region property
         public DelegateCommand<string> NavigateCommand { get; set; }
         public DelegateCommand<string> LoadCommand { get; set; }
-
         public DelegateCommand DialogSeviceCommand { get; set; }
+
+        private List<MenuItem> _menuItems;
+
+        public List<MenuItem> MenuItems
+        {
+            get => _menuItems;
+            set => SetProperty(ref _menuItems, value); 
+        }
+
         #endregion
 
 
@@ -83,6 +93,7 @@ namespace SamplePrism.ViewModels
 
         private void NavigateService(string navPath)
         {
+
             var param = new NavigationParameters();
             switch (navPath)
             {
@@ -96,7 +107,7 @@ namespace SamplePrism.ViewModels
                     break;
             }
 
-            
+
             //Dispatcher.InvokeAsync(async () =>
             //{
             //    await Task.Delay(1);

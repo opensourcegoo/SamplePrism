@@ -11,6 +11,5 @@
     <Grid Background="#FF432B59">
         <TextBlock HorizontalAlignment="Left" Margin="115,90,0,0" TextWrapping="Wrap" Text="SubViewA2" VerticalAlignment="Top" Height="50" Width="105"/>
         <TextBlock HorizontalAlignment="Left" Margin="168,115,0,0" Foreground="Cyan" TextWrapping="Wrap" Text="{Binding Message}" VerticalAlignment="Top" Height="75" Width="124"/>
-
     </Grid>
 </UserControl>

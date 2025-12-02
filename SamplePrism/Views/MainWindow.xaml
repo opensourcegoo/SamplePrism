@@ -4,9 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SamplePrism.Views"
+        xmlns:tools="clr-namespace:SamplePrism.Tools"
         xmlns:prism="http://prismlibrary.com/"
+        x:Name="TheMainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="1200" ShowInTaskbar="True" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None" ResizeMode="CanResize"  Background="Transparent">
+        Title="MainWindow" d:DesignWidth="1200" d:DesignHeight="700" ShowInTaskbar="True"  tools:AutoSystemCommandsBehavior.IsEnabled="True" WindowStartupLocation="CenterScreen"  ResizeMode="CanResize"  Background="Transparent">
+    <WindowChrome.WindowChrome>
+        <WindowChrome 
+         CaptionHeight="40"
+         ResizeBorderThickness="10"
+         GlassFrameThickness="0"
+         CornerRadius="0"
+         UseAeroCaptionButtons="False" />
+    </WindowChrome.WindowChrome>
     <ContentControl  prism:RegionManager.RegionName="MainRegion" />
     <!--<local:MainView />-->
 </Window>

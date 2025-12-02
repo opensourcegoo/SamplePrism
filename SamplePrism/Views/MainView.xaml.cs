@@ -24,6 +24,7 @@ namespace SamplePrism.Views
         public MainView()
         {
             InitializeComponent();
+
             //DrawerHost.CloseDrawerCommand.
         }
 
