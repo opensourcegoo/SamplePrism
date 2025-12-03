@@ -9,6 +9,13 @@
         xmlns:behavior="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"  d:DesignWidth="1200" d:DesignHeight="900">
+    <UserControl.Resources>
+        <!--<ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>-->
+    </UserControl.Resources>
 
 
     <behavior:Interaction.Triggers>
@@ -22,9 +29,10 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="8*" />
         </Grid.ColumnDefinitions>
+        <!--标题头-->
         <Grid Grid.Row="0" Grid.Column="0" x:Name="a123" Grid.ColumnSpan="2" Height="40" Background="#6200EE">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -43,7 +51,7 @@
                 <Button  Style="{StaticResource MaterialDesignToolButton}" Command="{x:Static SystemCommands.RestoreWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window,Mode=FindAncestor}}">
                     <materialDesign:PackIcon Kind="WindowRestore" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Width="20" Height="20" />
                 </Button>
-                
+
                 <Button  Style="{StaticResource MaterialDesignToolButton}" Command="{x:Static SystemCommands.CloseWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window,Mode=FindAncestor}}">
                     <materialDesign:PackIcon Kind="WindowClose" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Width="20" Height="20" />
                 </Button>
@@ -54,7 +62,8 @@
                 <Button Content="Close" Command="{Binding CloseCommand}" Width="80" Height="25" Margin="5,0"/>
             </StackPanel>-->
         </Grid>
-        <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="0"  Width="230">
+
+        <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="0"  >
             <Expander Header="basic">
                 <!--<StackPanel Margin="0,0,0,0" HorizontalAlignment="Stretch">
                     <Button Content="Nav-A" Command="{Binding NavigateCommand}" CommandParameter="ViewA" />
@@ -63,10 +72,23 @@
                     <Button Content="ActiveDeactive" Command="{Binding ActivationDeactivationCommand}" Height="30" />
                     <Button Content="CanExcute" Command="{Binding CanExcuteCommand}"  Height="25" />
                 </StackPanel>-->
-                <ListBox ItemsSource="{Binding MenuItems}" SelectedItem="{Binding SelectedMenuItem}">
+                <ListBox ItemsSource="{Binding DomainMenuItems}" SelectedItem="{Binding SelectedMenuItem}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesign3.NavigationRailPrimaryListBoxItem}">
+                            <Setter Property="materialDesign:BadgedAssist.Badge" Value="{Binding Notifications}" />
+                            <Setter Property="materialDesign:BadgedAssist.BadgeBackground" Value="#930006" />
+                            <Setter Property="materialDesign:BadgedAssist.BadgeForeground" Value="#FFDAD4" />
+                            <Setter Property="materialDesign:NavigationRailAssist.IsTextVisible" Value="True" />
+                            <Setter Property="materialDesign:NavigationRailAssist.SelectedIcon" Value="{Binding SelectedIcon}" />
+                            <Setter Property="materialDesign:NavigationRailAssist.UnselectedIcon" Value="{Binding UnselectedIcon}" />
+                        </Style>
+                    </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
-                        <DataTemplate DataType="MenuItem">
-                            <Button Content="{Binding Title}" Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding ViewName}"  Height="40" Margin="5"/>
+                        <DataTemplate DataType="DomainMenuItem">
+                            <!--<Button Content="{Binding Title}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" 
+                                    VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding ViewName}"/>-->
+                            <TextBlock Text="{Binding Title}" />
+
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

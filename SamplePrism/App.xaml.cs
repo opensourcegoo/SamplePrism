@@ -56,6 +56,7 @@ namespace SamplePrism
         {
             containerRegistry.RegisterForNavigation<ViewA>();
             containerRegistry.RegisterForNavigation<ViewB>();
+            containerRegistry.RegisterForNavigation<ButtonsView>();
             containerRegistry.RegisterForNavigation<MainView>();
             //containerRegistry.RegisterForNavigation<MainWindow>();
             containerRegistry.RegisterForNavigation<HomeView>();
@@ -88,6 +89,7 @@ namespace SamplePrism
         {
             base.ConfigureViewModelLocator();
             ViewModelLocationProvider.Register<MainView, MainViewModel>();
+            ViewModelLocationProvider.Register<ButtonsView,ButtonsViewModel>();
             ViewModelLocationProvider.Register<HomeView, HomeViewModel>();
             ViewModelLocationProvider.Register<DefaultView, DefaultViewModel>();
             ViewModelLocationProvider.Register<TestLoginWindow06, TestLoginWindow06ViewModel>();

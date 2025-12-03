@@ -169,8 +169,6 @@ namespace SamplePrism.ViewModels
             }
         }
         #endregion
-
-
     }
 
     public enum EA1 { N1, N2, N4 }
