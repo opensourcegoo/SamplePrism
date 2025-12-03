@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SamplePrism.ViewModels
 {
-    public class ButtonsViewModel : BindableBase
+    public class CardsViewModel : BindableBase
     {
-        public ButtonsViewModel()
+        public CardsViewModel()
         {
 
         }

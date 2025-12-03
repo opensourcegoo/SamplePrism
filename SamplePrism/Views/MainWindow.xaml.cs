@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Shell;
 
 namespace SamplePrism.Views
 {
@@ -22,6 +23,18 @@ namespace SamplePrism.Views
         public MainWindow()
         {
             InitializeComponent();
+            var chrome = WindowChrome.GetWindowChrome(this);
+            if (chrome != null)
+            {
+                if (WindowState == WindowState.Maximized)
+                {
+                    chrome.GlassFrameThickness = new Thickness(48);
+                }
+                else
+                {
+                    chrome.GlassFrameThickness = new Thickness(40);
+                }
+            }
             // 这三行搞定全局：最小化、最大化、关闭，任何 UserControl 里的按钮都能直接点
             //CommandBindings.Add(new CommandBinding(SystemCommands.CloseWindowCommand,
             //    (sender, e) => Close()));

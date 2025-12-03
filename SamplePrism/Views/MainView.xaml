@@ -29,17 +29,20 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="8*" />
+            <ColumnDefinition Width="1.5*" />
+            <ColumnDefinition Width="8.5*" />
         </Grid.ColumnDefinitions>
         <!--标题头-->
-        <Grid Grid.Row="0" Grid.Column="0" x:Name="a123" Grid.ColumnSpan="2" Height="40" Background="#6200EE">
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="40" Background="{DynamicResource PrimaryHueLightBrush}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Sample Prism Application" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="16" Foreground="White" />
-            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" WindowChrome.IsHitTestVisibleInChrome="True">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Plane" Margin="15,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="25" Width="25" />
+                <TextBlock Text="Prism Application" Foreground="Black" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="14" FontWeight="Bold" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" WindowChrome.IsHitTestVisibleInChrome="True" >
                 <Button  Style="{StaticResource MaterialDesignToolButton}" Command="{x:Static SystemCommands.MinimizeWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window,Mode=FindAncestor}}">
                     <materialDesign:PackIcon Kind="WindowMinimize" HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="White" Width="20" Height="20" />
                 </Button>
@@ -63,8 +66,52 @@
             </StackPanel>-->
         </Grid>
 
-        <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="0"  >
-            <Expander Header="basic">
+        <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Orientation="Vertical"  >
+            <StackPanel.Resources>
+                <Style TargetType="materialDesign:PackIcon">
+                    <Setter Property="Width" Value="25"/>
+                    <Setter Property="Height" Value="25"/>
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                </Style>
+
+                <Style x:Key="NavigationMenuItem" TargetType="Button">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="Padding" Value="16,12"/>
+                    <!-- 左右 16，上下 12 -->
+                    <Setter Property="Foreground" Value="#333"/>
+                    <Setter Property="FontFamily" Value="{StaticResource MaterialDesignFont}"/>
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+                    <!-- 鼠标悬停效果 -->
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#F5F5F5"/>
+                            <Setter Property="Foreground" Value="#000"/>
+                        </Trigger>
+
+                        <!-- 选中状态（通过 IsSelected 绑定实现） -->
+                        <!--<Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#E8E8E8"/>
+                            <Setter Property="Foreground" Value="#000"/>
+                            <Setter Property="BorderBrush" Value="#BDBDBD"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                        </Trigger>-->
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Resources>
+            <Expander>
+                <Expander.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" >
+                            <materialDesign:PackIcon Kind="Menu" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                            <TextBlock Text="  Menu" VerticalAlignment="Center" FontSize="14" Padding="10"  FontWeight="SemiBold" />
+                        </StackPanel>
+                    </DataTemplate>
+                </Expander.HeaderTemplate>
                 <!--<StackPanel Margin="0,0,0,0" HorizontalAlignment="Stretch">
                     <Button Content="Nav-A" Command="{Binding NavigateCommand}" CommandParameter="ViewA" />
                     <Button Content="Nav-B" Command="{Binding NavigateCommand}" CommandParameter="ViewB"  Height="30"/>
@@ -72,26 +119,33 @@
                     <Button Content="ActiveDeactive" Command="{Binding ActivationDeactivationCommand}" Height="30" />
                     <Button Content="CanExcute" Command="{Binding CanExcuteCommand}"  Height="25" />
                 </StackPanel>-->
-                <ListBox ItemsSource="{Binding DomainMenuItems}" SelectedItem="{Binding SelectedMenuItem}">
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesign3.NavigationRailPrimaryListBoxItem}">
-                            <Setter Property="materialDesign:BadgedAssist.Badge" Value="{Binding Notifications}" />
-                            <Setter Property="materialDesign:BadgedAssist.BadgeBackground" Value="#930006" />
-                            <Setter Property="materialDesign:BadgedAssist.BadgeForeground" Value="#FFDAD4" />
-                            <Setter Property="materialDesign:NavigationRailAssist.IsTextVisible" Value="True" />
-                            <Setter Property="materialDesign:NavigationRailAssist.SelectedIcon" Value="{Binding SelectedIcon}" />
-                            <Setter Property="materialDesign:NavigationRailAssist.UnselectedIcon" Value="{Binding UnselectedIcon}" />
-                        </Style>
-                    </ListBox.ItemContainerStyle>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate DataType="DomainMenuItem">
-                            <!--<Button Content="{Binding Title}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" 
-                                    VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding ViewName}"/>-->
-                            <TextBlock Text="{Binding Title}" />
+                <!--SelectedItem="{Binding SelectedMenuItem}"-->
 
+                <!--<ListBox ItemsSource="{Binding DomainMenuItems}" >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate >
+                            <Button Content="{Binding Title}" Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" 
+                                    VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=UserControl,Mode=FindAncestor}}" 
+                                    CommandParameter="{Binding ViewName}"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
-                </ListBox>
+                </ListBox>-->
+                <ItemsControl ItemsSource="{Binding DomainMenuItems}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <!--<materialDesign:PackIcon Kind="{Binding SelectedIcon}" Foreground="Chocolate" Margin="70,0,0,0" />-->
+                            <Button Content="{Binding Title}" Padding="10"  Style="{StaticResource MaterialDesignFlatButton}" Background="#F5F5F5" Height="47" VerticalAlignment="Center"
+                                     VerticalContentAlignment="Center" Foreground="#333" Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=UserControl,Mode=FindAncestor}}" 
+                                    CommandParameter="{Binding ViewName}">
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </Expander>
         </StackPanel>
 
