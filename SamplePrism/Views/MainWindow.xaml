@@ -18,5 +18,16 @@
          UseAeroCaptionButtons="False" />
     </WindowChrome.WindowChrome>
     <ContentControl  prism:RegionManager.RegionName="MainRegion" />
-    <!--<local:MainView />-->
+    <!--
+        <local:MainView />
+    处理 MaterialDesignThemes 相关依赖问题的命令：
+    Uninstall-Package MaterialDesignThemes -Force
+    Uninstall-Package MaterialDesignThemes.MahApps -Force
+    Uninstall-Package MaterialDesignColors -Force
+    Uninstall-Package MaterialDesignThemes.Wpf -Force
+    重新安装    
+    Install-Package MaterialDesignThemes.Wpf -Version 5.3.0
+    Install-Package MaterialDesignThemes -Version 5.3.0
+    Install-Package MaterialDesignColors -Version 5.3.0
+    -->
 </Window>

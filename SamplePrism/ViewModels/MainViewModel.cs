@@ -51,7 +51,7 @@ namespace SamplePrism.ViewModels
             _dialogService = dialogService;
             DomainMenuItems = new List<DomainMenuItem>() 
             { 
-                new DomainMenuItem(1,"ButtonsView","ButtonsView",PackIconKind.Abc,PackIconKind.ABCOff),
+                new DomainMenuItem(1,"ButtonsView","ButtonsView",PackIconKind.AboutCircle,PackIconKind.ABCOff),
                 new DomainMenuItem(2,"CardsView","CardsView",PackIconKind.Cardholder,PackIconKind.IdCardOutline),
                 new DomainMenuItem(3,"CardsView","TogglesView",PackIconKind.Cardholder,PackIconKind.IdCardOutline),
                 new DomainMenuItem(4,"CardsView","FiledView",PackIconKind.Cardholder,PackIconKind.IdCardOutline),

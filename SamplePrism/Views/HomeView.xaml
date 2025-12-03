@@ -30,7 +30,7 @@
             <Run Text=" (最大值: 13)"/>
             </TextBlock>
         </StackPanel>
-        <Grid Grid.Row="1">
+        <Grid HorizontalAlignment="Right" Margin="0,217,0,0" Grid.RowSpan="2" Width="800">
             <ComboBox Width="100" Height="30" ItemsSource="{Binding AvaiableA1Lsit}" SelectedValue="{Binding SelectedEA1}"  HorizontalAlignment="Left"/>
             <ComboBox Width="100" Height="30" ItemsSource="{Binding AvaiableA2Lsit}" SelectedValue="{Binding SelectedEA2}"  HorizontalAlignment="Center"/>
             <ComboBox Width="100" Height="30" ItemsSource="{Binding AvaiableA3Lsit}" SelectedValue="{Binding SelectedEA3}"  HorizontalAlignment="Right"/>

@@ -17,7 +17,6 @@
         </ResourceDictionary>-->
     </UserControl.Resources>
 
-
     <behavior:Interaction.Triggers>
         <behavior:EventTrigger EventName="Loaded">
             <prism:InvokeCommandAction Command="{Binding LoadCommand}" CommandParameter="DefaultView" />
@@ -33,13 +32,13 @@
             <ColumnDefinition Width="8.5*" />
         </Grid.ColumnDefinitions>
         <!--标题头-->
-        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="40" Background="{DynamicResource PrimaryHueLightBrush}">
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="40" Background="#FFFFFF">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Horizontal">
-                <materialDesign:PackIcon Kind="Plane" Margin="15,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="25" Width="25" />
+            <StackPanel Orientation="Horizontal" >
+                <materialDesign:PackIcon Kind="Plane" Foreground="Black" Margin="15,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="25" Width="25" />
                 <TextBlock Text="Prism Application" Foreground="Black" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="14" FontWeight="Bold" />
             </StackPanel>
             <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" WindowChrome.IsHitTestVisibleInChrome="True" >
@@ -66,7 +65,7 @@
             </StackPanel>-->
         </Grid>
 
-        <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Orientation="Vertical"  >
+        <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Orientation="Vertical" Background="#F8F9FE" >
             <StackPanel.Resources>
                 <Style TargetType="materialDesign:PackIcon">
                     <Setter Property="Width" Value="25"/>
@@ -138,10 +137,17 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <!--<materialDesign:PackIcon Kind="{Binding SelectedIcon}" Foreground="Chocolate" Margin="70,0,0,0" />-->
-                            <Button Content="{Binding Title}" Padding="10"  Style="{StaticResource MaterialDesignFlatButton}" Background="#F5F5F5" Height="47" VerticalAlignment="Center"
+
+
+                            <Button Padding="10"  Style="{StaticResource MaterialDesignFlatButton}" Background="#F5F5F5" Height="47" VerticalAlignment="Center"
                                      VerticalContentAlignment="Center" Foreground="#333" Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=UserControl,Mode=FindAncestor}}" 
                                     CommandParameter="{Binding ViewName}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="{Binding SelectedIcon}" Height="25" Width="25" Foreground="IndianRed" Margin="50,0,10,0" Padding="10" HorizontalAlignment="Left" />
+                                        <TextBlock Text="{Binding Title}" VerticalAlignment="Center" FontSize="13"  FontWeight="Medium" />
+                                    </StackPanel>
+                                </Button.Content>
                             </Button>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
