@@ -24,6 +24,15 @@ namespace SamplePrism.Views
         public MainView()
         {
             InitializeComponent();
+            if (Application.Current.Resources.Contains("PrimaryBrush"))
+            {
+                var brush = Application.Current.Resources["PrimaryBrush"] as SolidColorBrush;
+                System.Diagnostics.Debug.WriteLine($"PrimaryBrush color: {brush?.Color}");
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("❌ PrimaryBrush NOT FOUND!");
+            }
 
             //DrawerHost.CloseDrawerCommand.
         }

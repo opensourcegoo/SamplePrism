@@ -40,7 +40,7 @@ namespace SamplePrism.Core
                 var transform = new TranslateTransform(300, 0);
                 element.RenderTransform = transform;
                 element.Opacity = 0;
-                var slideAnim = new DoubleAnimation(300, 0, TimeSpan.FromMilliseconds(150));
+                var slideAnim = new DoubleAnimation(300, 0, TimeSpan.FromMilliseconds(300));
                 var fadeAnim = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(500));
                 slideAnim.Completed += (s, e) => element.RenderTransform = Transform.Identity;
                 transform.BeginAnimation(TranslateTransform.XProperty, slideAnim);

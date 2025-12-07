@@ -10,11 +10,65 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"  d:DesignWidth="1200" d:DesignHeight="900">
     <UserControl.Resources>
-        <!--<ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>-->
+        <!-- Prism Region 切换动画（右 → 左滑入） -->
+        <Style x:Key="PrismRegionSlideTransitionStyle" TargetType="ContentControl">
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <TranslateTransform />
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <!-- 当内容第一次加载时不播放动画 -->
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Content}" Value="{x:Null}">
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <TranslateTransform X="0" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+
+                <!-- 进入动画：从右滑入 -->
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)"
+                                             From="1000" To="0"
+                                             Duration="0:0:0.35">
+                                <DoubleAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             From="0" To="1"
+                                             Duration="0:0:0.25" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+
+                <!-- 离开动画：往左滑出（Prism 会把旧视图暂时保留用于动画） -->
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=(prism:RegionManager.RegionName)}" Value="MainViewRegion">
+                    <DataTrigger.EnterActions>
+                        <RemoveStoryboard />
+                    </DataTrigger.EnterActions>
+                    <DataTrigger.ExitActions>
+                        <BeginStoryboard x:Name="SlideOutStoryboard">
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)"
+                                                 To="-300"
+                                                 Duration="0:0:0.3">
+                                    <DoubleAnimation.EasingFunction>
+                                        <CubicEase EasingMode="EaseIn" />
+                                    </DoubleAnimation.EasingFunction>
+                                </DoubleAnimation>
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                 To="0"
+                                                 Duration="0:0:0.25" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.ExitActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
 
     <behavior:Interaction.Triggers>
@@ -24,7 +78,7 @@
     </behavior:Interaction.Triggers>
     <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -32,12 +86,13 @@
             <ColumnDefinition Width="8.5*" />
         </Grid.ColumnDefinitions>
         <!--标题头-->
-        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="40" Background="#FFFFFF">
+        <!--<Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="40" Background="#FF819D65">-->
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="40" Background="{DynamicResource MaterialDesign.Brush.Primary}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Horizontal" >
+            <StackPanel Orientation="Horizontal">
                 <materialDesign:PackIcon Kind="Plane" Foreground="Black" Margin="15,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="25" Width="25" />
                 <TextBlock Text="Prism Application" Foreground="Black" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="14" FontWeight="Bold" />
             </StackPanel>
@@ -91,7 +146,6 @@
                             <Setter Property="Background" Value="#F5F5F5"/>
                             <Setter Property="Foreground" Value="#000"/>
                         </Trigger>
-
                         <!-- 选中状态（通过 IsSelected 绑定实现） -->
                         <!--<Trigger Property="IsSelected" Value="True">
                             <Setter Property="Background" Value="#E8E8E8"/>
@@ -111,6 +165,7 @@
                         </StackPanel>
                     </DataTemplate>
                 </Expander.HeaderTemplate>
+
                 <!--<StackPanel Margin="0,0,0,0" HorizontalAlignment="Stretch">
                     <Button Content="Nav-A" Command="{Binding NavigateCommand}" CommandParameter="ViewA" />
                     <Button Content="Nav-B" Command="{Binding NavigateCommand}" CommandParameter="ViewB"  Height="30"/>
@@ -129,6 +184,7 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>-->
+
                 <ItemsControl ItemsSource="{Binding DomainMenuItems}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -137,8 +193,6 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-
-
                             <Button Padding="10"  Style="{StaticResource MaterialDesignFlatButton}" Background="#F5F5F5" Height="47" VerticalAlignment="Center"
                                      VerticalContentAlignment="Center" Foreground="#333" Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=UserControl,Mode=FindAncestor}}" 
                                     CommandParameter="{Binding ViewName}">
@@ -166,20 +220,34 @@
             </materialDesign:Transitioner.Items>
         </materialDesign:Transitioner>-->
 
-        <materialDesign:TransitioningContent Grid.Row="1"  Grid.Column="1"  Margin="0,0,0,0"  prism:RegionManager.RegionName="MainViewRegion" >
+        <!--<materialDesign:TransitioningContent Grid.Row="1"  Grid.Column="1"  Margin="0,0,0,0"  prism:RegionManager.RegionName="MainViewRegion" >
             <materialDesign:TransitioningContent.OpeningEffect>
-                <materialDesign:TransitionEffect Kind="SlideInFromRight" Duration="0:0:0.6" />
-                <!--<materialDesign:TransitionEffect Kind="FadeIn" />-->
+                <materialDesign:TransitionEffect Kind="SlideInFromRight" Duration="0:0:.7" />
+                --><!--<materialDesign:TransitionEffect Kind="FadeIn" />--><!--
             </materialDesign:TransitioningContent.OpeningEffect>
-            <!--<materialDesign:TransitioningContent.ClosingEffect>
+        </materialDesign:TransitioningContent>-->
+        
+        <!--<materialDesign:TransitioningContent.ClosingEffect>
                 <materialDesign:TransitionEffect Kind="SlideOutToLeft" />
                 <materialDesign:TransitionEffect Kind="FadeOut" />
-            </materialDesign:TransitioningContent.ClosingEffect>-->
-            <!--<ContentControl prism:RegionManager.RegionName="MainViewRegion" />-->
-        </materialDesign:TransitioningContent>
+            </materialDesign:TransitioningContent.ClosingEffect>
+        <ContentControl prism:RegionManager.RegionName="MainViewRegion" />-->
 
-        <!--<UserControl Grid.Row="1" Grid.Column="1" prism:RegionManager.RegionName="MainViewRegion" core:RegionAnimation.Enable="True">
 
-        </UserControl>-->
+
+        <!--<materialDesign:Card Grid.Row="1"  Grid.Column="1">
+            <materialDesign:TransitioningContent  Grid.Row="1"  Grid.Column="1"   prism:RegionManager.RegionName="MainViewRegion" >
+
+            </materialDesign:TransitioningContent>
+        </materialDesign:Card>-->
+        <!--<materialDesign:TransitioningContentControl
+    prism:RegionManager.RegionName="MainViewRegion"
+    Transition="SlideFromRight"
+    Duration="0:0:0.35" />-->
+
+        <ContentControl Grid.Row="1" Grid.Column="1" prism:RegionManager.RegionName="MainViewRegion" core:RegionAnimation.Enable="True"
+                        >
+
+        </ContentControl>
     </Grid>
 </UserControl>

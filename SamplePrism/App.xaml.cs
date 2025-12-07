@@ -1,4 +1,6 @@
-﻿using Microsoft.Win32;
+﻿using MaterialDesignColors;
+using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using ModuleA.Module;
 using ModuleA.Views;
 using ModuleB.Views;
@@ -35,6 +37,11 @@ namespace SamplePrism
         {
             var shell = Container.Resolve<MainWindow>();
             return shell;
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
         }
 
         //protected override void OnInitialized()

@@ -8,9 +8,18 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!--<materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="blue" SecondaryColor="Green" />-->
                 <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="DeepPurple" SecondaryColor="LightBlue" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
+                <!--
+                    (1)此方案是为了让MD2迁移到MD3 使用PrimaryHueMidBrush的临时过渡措施 这样就可以使用动态资源PrimaryHueMidBrush了
+                    (2)用途正确的 DynamicResource 键名说明Primary 
+                        主色（中色调）{DynamicResource MaterialDesign.Brush.Primary}最常用，等同于旧的 PrimaryHueMidBrushPrimary 
+                        浅色调{DynamicResource MaterialDesign.Brush.Primary.Light}旧 PrimaryHueLightBrushPrimary 
+                        深色调{DynamicResource MaterialDesign.Brush.Primary.Dark}旧 PrimaryHueDarkBrush
+                -->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ObsoleteBrushes.xaml" />
+
+                <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Transitions.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

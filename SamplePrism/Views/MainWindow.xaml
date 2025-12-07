@@ -8,7 +8,7 @@
         xmlns:prism="http://prismlibrary.com/"
         x:Name="TheMainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" d:DesignWidth="1200" d:DesignHeight="700" ShowInTaskbar="True"  tools:AutoSystemCommandsBehavior.IsEnabled="True" WindowStartupLocation="CenterScreen"  ResizeMode="CanResize"  Background="Transparent">
+        Title="MainWindow" d:DesignWidth="1200" d:DesignHeight="700" ShowInTaskbar="True" Style="{StaticResource MaterialDesignWindow}"  tools:AutoSystemCommandsBehavior.IsEnabled="True" WindowStartupLocation="CenterScreen"  ResizeMode="CanResize"  Background="Transparent">
     <WindowChrome.WindowChrome>
         <WindowChrome 
          CaptionHeight="40"
