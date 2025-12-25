@@ -23,7 +23,6 @@ namespace SamplePrism.ViewModels
                 buttonResult = ButtonResult.OK;
             else if (result?.ToLower() == "false" || result?.ToLower() == "cancel")
                 buttonResult = ButtonResult.Cancel;
-
             // 使用 DialogCloseListener 来关闭对话框
             RequestClose.Invoke(new DialogResult(buttonResult));
         }

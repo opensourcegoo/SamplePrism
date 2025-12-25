@@ -25,6 +25,7 @@ namespace SamplePrism.ViewModels
         IRegionManager _regionManager;
         DefaultView? _defaultView = null;
         ViewA? _viewA = null;
+        ButtonsView? _buttonsView = null;
         IContainerExtension _containerExtension;
         IDialogService _dialogService;
         #endregion
@@ -49,8 +50,8 @@ namespace SamplePrism.ViewModels
             _regionManager = regionManager;
             _containerExtension = containerExtension;
             _dialogService = dialogService;
-            DomainMenuItems = new List<DomainMenuItem>() 
-            { 
+            DomainMenuItems = new List<DomainMenuItem>()
+            {
                 new DomainMenuItem(1,"ButtonsView","ButtonsView",PackIconKind.AboutCircle,PackIconKind.ABCOff),
                 new DomainMenuItem(2,"CardsView","CardsView",PackIconKind.Cardholder,PackIconKind.IdCardOutline),
                 new DomainMenuItem(3,"CardsView","TogglesView",PackIconKind.Cardholder,PackIconKind.IdCardOutline),
@@ -90,15 +91,17 @@ namespace SamplePrism.ViewModels
             #region 2，拿到View和Region再Add (可添加多个view) 使用Activate和Deactivate来激活或关闭区域中的已添加的Views
             _defaultView = _containerExtension.Resolve<DefaultView>();
             _viewA = _containerExtension.Resolve<ViewA>();
+            _buttonsView = _containerExtension.Resolve<ButtonsView>();
+
             IRegion mainRegion = _regionManager.Regions["MainViewRegion"];
             if (mainRegion != null)
             {
                 mainRegion.Add(_defaultView);
                 mainRegion.Add(_viewA);
+                mainRegion.Add(_buttonsView);
             }
-            mainRegion.Activate(_defaultView);
+            mainRegion?.Activate(_buttonsView);
             #endregion
-
         }
 
         //NavigationParameters

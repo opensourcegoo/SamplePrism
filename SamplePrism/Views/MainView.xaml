@@ -76,7 +76,7 @@
             <prism:InvokeCommandAction Command="{Binding LoadCommand}" CommandParameter="DefaultView" />
         </behavior:EventTrigger>
     </behavior:Interaction.Triggers>
-    <Grid Background="White">
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition />
@@ -120,48 +120,54 @@
             </StackPanel>-->
         </Grid>
 
-        <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Orientation="Vertical" Background="#F8F9FE" >
+        <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Orientation="Vertical" Background="#1E1E1E">
             <StackPanel.Resources>
                 <Style TargetType="materialDesign:PackIcon">
                     <Setter Property="Width" Value="25"/>
                     <Setter Property="Height" Value="25"/>
+                    <Setter Property="Foreground" Value="#9E9E9E" />
                     <Setter Property="VerticalAlignment" Value="Center" />
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="White" />
+                        </Trigger>
+                    </Style.Triggers>
                 </Style>
 
-                <Style x:Key="NavigationMenuItem" TargetType="Button">
+                <!--<Style x:Key="NavigationMenuItem" TargetType="Button">
                     <Setter Property="Background" Value="Transparent"/>
                     <Setter Property="BorderBrush" Value="Transparent"/>
                     <Setter Property="BorderThickness" Value="0"/>
                     <Setter Property="Padding" Value="16,12"/>
-                    <!-- 左右 16，上下 12 -->
+                    --><!-- 左右 16，上下 12 --><!--
                     <Setter Property="Foreground" Value="#333"/>
                     <Setter Property="FontFamily" Value="{StaticResource MaterialDesignFont}"/>
                     <Setter Property="FontSize" Value="14"/>
                     <Setter Property="HorizontalContentAlignment" Value="Left"/>
                     <Setter Property="VerticalContentAlignment" Value="Center"/>
 
-                    <!-- 鼠标悬停效果 -->
+                    --><!-- 鼠标悬停效果 --><!--
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#F5F5F5"/>
+                            --><!--<Setter Property="Background" Value="#F5F5F5"/>--><!--
                             <Setter Property="Foreground" Value="#000"/>
                         </Trigger>
-                        <!-- 选中状态（通过 IsSelected 绑定实现） -->
+                        --><!-- 选中状态（通过 IsSelected 绑定实现） -->
                         <!--<Trigger Property="IsSelected" Value="True">
                             <Setter Property="Background" Value="#E8E8E8"/>
                             <Setter Property="Foreground" Value="#000"/>
                             <Setter Property="BorderBrush" Value="#BDBDBD"/>
                             <Setter Property="BorderThickness" Value="1"/>
-                        </Trigger>-->
+                        </Trigger>--><!--
                     </Style.Triggers>
-                </Style>
+                </Style>-->
             </StackPanel.Resources>
-            <Expander>
+            <Expander Background="{x:Null}">
                 <Expander.HeaderTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" >
                             <materialDesign:PackIcon Kind="Menu" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
-                            <TextBlock Text="  Menu" VerticalAlignment="Center" FontSize="14" Padding="10"  FontWeight="SemiBold" />
+                            <TextBlock Text="  Menu" Foreground="#B0B0B0" VerticalAlignment="Center" FontSize="14" Padding="10"  FontWeight="SemiBold" />
                         </StackPanel>
                     </DataTemplate>
                 </Expander.HeaderTemplate>
@@ -176,7 +182,7 @@
                 <!--SelectedItem="{Binding SelectedMenuItem}"-->
 
                 <!--<ListBox ItemsSource="{Binding DomainMenuItems}" >
-                    <ListBox.ItemTemplate>
+                      <ListBox.ItemTemplate>
                         <DataTemplate >
                             <Button Content="{Binding Title}" Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" 
                                     VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=UserControl,Mode=FindAncestor}}" 
@@ -193,20 +199,38 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Button Padding="10"  Style="{StaticResource MaterialDesignFlatButton}" Background="#F5F5F5" Height="47" VerticalAlignment="Center"
-                                     VerticalContentAlignment="Center" Foreground="#333" Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=UserControl,Mode=FindAncestor}}" 
+                            <Button x:Name="mainbtn" OverridesDefaultStyle="True" Padding="0"  Style="{StaticResource MaterialDesignFlatButton}"  Height="47" VerticalAlignment="Center"
+                                     VerticalContentAlignment="Center"  Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=UserControl,Mode=FindAncestor}}" 
                                     CommandParameter="{Binding ViewName}">
                                 <Button.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon Kind="{Binding SelectedIcon}" Height="25" Width="25" Foreground="IndianRed" Margin="50,0,10,0" Padding="10" HorizontalAlignment="Left" />
-                                        <TextBlock Text="{Binding Title}" VerticalAlignment="Center" FontSize="13"  FontWeight="Medium" />
+                                    <StackPanel x:Name="mainstack" Orientation="Horizontal">
+                                        <materialDesign:PackIcon x:Name="icon" Kind="{Binding SelectedIcon}" Height="25" Width="25"  Margin="0,0,10,0" Padding="10" HorizontalAlignment="Left" />
+                                        <TextBlock x:Name="txtTitle" Text="{Binding Title}" VerticalAlignment="Center" FontSize="13"  FontWeight="Medium" />
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
+                            <DataTemplate.Triggers>
+                                <!--<Trigger Property="IsMouseOver" Value="False">
+                                    <Setter TargetName="mainbtn" Property="Background"  Value="BurlyWood"/>
+                                </Trigger>-->
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="icon" Property="Foreground" Value="#FFFFFF" />
+                                    <Setter TargetName="txtTitle" Property="Foreground" Value="#FFFFFF"/>
+                                    <Setter TargetName="mainbtn" Property="Background"  Value="Red"/>
+                                </Trigger>
+                            </DataTemplate.Triggers>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </Expander>
+
+            <!--<Expander>
+                    
+            </Expander>
+            
+            <Expander>
+
+            </Expander>-->
         </StackPanel>
 
         <!--<materialDesign:Transitioner SelectedIndex="0" Grid.Row="1" Grid.Column="1"  Transition="{x:Static materialDesign:TransitioningContentSlideAndFadeTransition}" Margin="0,64,0,0">
@@ -223,10 +247,12 @@
         <!--<materialDesign:TransitioningContent Grid.Row="1"  Grid.Column="1"  Margin="0,0,0,0"  prism:RegionManager.RegionName="MainViewRegion" >
             <materialDesign:TransitioningContent.OpeningEffect>
                 <materialDesign:TransitionEffect Kind="SlideInFromRight" Duration="0:0:.7" />
-                --><!--<materialDesign:TransitionEffect Kind="FadeIn" />--><!--
+                -->
+        <!--<materialDesign:TransitionEffect Kind="FadeIn" />-->
+        <!--
             </materialDesign:TransitioningContent.OpeningEffect>
         </materialDesign:TransitioningContent>-->
-        
+
         <!--<materialDesign:TransitioningContent.ClosingEffect>
                 <materialDesign:TransitionEffect Kind="SlideOutToLeft" />
                 <materialDesign:TransitionEffect Kind="FadeOut" />
@@ -245,9 +271,7 @@
     Transition="SlideFromRight"
     Duration="0:0:0.35" />-->
 
-        <ContentControl Grid.Row="1" Grid.Column="1" prism:RegionManager.RegionName="MainViewRegion" core:RegionAnimation.Enable="True"
-                        >
-
+        <ContentControl Grid.Row="1" Grid.Column="1" prism:RegionManager.RegionName="MainViewRegion" core:RegionAnimation.Enable="True">
         </ContentControl>
     </Grid>
 </UserControl>

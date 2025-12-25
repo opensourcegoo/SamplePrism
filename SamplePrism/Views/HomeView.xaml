@@ -34,6 +34,27 @@
             <ComboBox Width="100" Height="30" ItemsSource="{Binding AvaiableA1Lsit}" SelectedValue="{Binding SelectedEA1}"  HorizontalAlignment="Left"/>
             <ComboBox Width="100" Height="30" ItemsSource="{Binding AvaiableA2Lsit}" SelectedValue="{Binding SelectedEA2}"  HorizontalAlignment="Center"/>
             <ComboBox Width="100" Height="30" ItemsSource="{Binding AvaiableA3Lsit}" SelectedValue="{Binding SelectedEA3}"  HorizontalAlignment="Right"/>
+            <Button>
+                <Button.Template>
+                    <ControlTemplate>
+                        <Grid HorizontalAlignment="Center" Margin="0,50,0,0">
+                            <TextBlock Text="计算" FontSize="16" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Ellipse Width="100" Height="40" Fill="Blue"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <EventTrigger RoutedEvent="Button.Click">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="ResultTextBlock">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
         </Grid>
     </Grid>
 </Window>

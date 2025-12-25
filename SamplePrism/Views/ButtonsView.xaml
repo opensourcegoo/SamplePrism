@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:SamplePrism.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="#FFE6D0D0">
+    <Grid >
         <StackPanel>
             <GroupBox Header="UL">
                 <Grid>
@@ -33,7 +34,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition />
-                        <RowDefinition />
+                        <RowDefinition  />
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -49,6 +50,65 @@
                     <Button Grid.Row="1" Margin="5" Grid.Column="2" Content=" 123" HorizontalAlignment="Center" />
                 </Grid>
             </GroupBox>
+
+            <materialDesign:Card Margin="32" CacheMode="BitmapCache" Background="{DynamicResource MaterialDesign.Brush.Primary}">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Twitter" Height="60" Width="60" Margin="20,20,0,20" />
+                    <TextBlock Text="Hey this is materialDesign" VerticalAlignment="Center" Margin="16,0"  />
+                    <materialDesign:ColorZone Mode="Light"  VerticalAlignment="Stretch">
+                        <StackPanel Orientation="Horizontal">
+                            <!--<TextBlock Text="Color Zone" VerticalAlignment="Center" Margin="16,0"  />-->
+                            <materialDesign:PackIcon Kind="Magnify" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                            <TextBox Text="" MinWidth="120"  VerticalAlignment="Stretch" 
+                                     materialDesign:HintAssist.Hint="Search"
+                                     materialDesign:HintAssist.IsFloating="True"/>
+                            <Button Style="{DynamicResource MaterialDesignToolButton}">
+                                <materialDesign:PackIcon Kind="Microphone" />
+                            </Button>
+
+                            <Button
+  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+  Style="{StaticResource MaterialDesignFloatingActionMiniSecondaryButton}"
+  ToolTip="MaterialDesignFloatingActionMiniSecondaryButton">
+                                <!--<materialDesign:PackIcon
+    Width="{StaticResource IconSize}"
+    Height="{StaticResource IconSize}"
+    Kind="Alarm" />-->
+                                
+                                
+                            </Button>
+                            <Button
+  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+  Style="{StaticResource MaterialDesignFloatingActionMiniSecondaryButton}"
+  ToolTip="MaterialDesignFloatingActionMiniSecondaryButton">
+                                <materialDesign:PackIcon
+    Width="12"
+    Height="22"
+    Kind="Alarm" />
+                            </Button>
+                        </StackPanel>
+                    </materialDesign:ColorZone>
+                    <materialDesign:PopupBox Margin="8,0,0,0" Content="21312312">
+                        <!--<materialDesign:PopupBox.ToggleCheckedContent>
+                            <materialDesign:PackIcon Kind="Car" />
+                        </materialDesign:PopupBox.ToggleCheckedContent>-->
+                        :==)
+                    </materialDesign:PopupBox>
+                    <!--<materialDesign:PackIcon Kind="Magnify" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                    <TextBox Text="" MinWidth="120" Background="White" VerticalAlignment="Center" />
+                    <Button>
+                        <materialDesign:PackIcon Kind="Microphone" />
+                    </Button>-->
+                </StackPanel>
+            </materialDesign:Card>
+
+            <materialDesign:ColorZone Mode="Light" CornerRadius="2">
+                <StackPanel Orientation="Horizontal" Margin="16">
+                    <TextBlock Text="This is a light color zone" VerticalAlignment="Center" Margin="0,0,16,0"/>
+                    <materialDesign:PackIcon Kind="Magnify" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                    <TextBox MinWidth="120" Background="White" VerticalAlignment="Center" />
+                </StackPanel>
+            </materialDesign:ColorZone>
         </StackPanel>
     </Grid>
 </UserControl>

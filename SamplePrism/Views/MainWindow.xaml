@@ -6,9 +6,13 @@
         xmlns:local="clr-namespace:SamplePrism.Views"
         xmlns:tools="clr-namespace:SamplePrism.Tools"
         xmlns:prism="http://prismlibrary.com/"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         x:Name="TheMainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" d:DesignWidth="1200" d:DesignHeight="700" ShowInTaskbar="True" Style="{StaticResource MaterialDesignWindow}"  tools:AutoSystemCommandsBehavior.IsEnabled="True" WindowStartupLocation="CenterScreen"  ResizeMode="CanResize"  Background="Transparent">
+        Title="MainWindow" d:DesignWidth="1200"  d:DesignHeight="700" ShowInTaskbar="True" Style="{StaticResource MaterialDesignWindow}"  
+        tools:AutoSystemCommandsBehavior.IsEnabled="True" WindowStartupLocation="CenterScreen"  ResizeMode="CanResize" 
+        TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" Background="{DynamicResource MaterialDesign.Brush.Background}"
+        TextElement.FontWeight="Medium" TextElement.FontSize="14" FontFamily="{materialDesign:MaterialDesignFont}">
     <WindowChrome.WindowChrome>
         <WindowChrome 
          CaptionHeight="40"
@@ -17,7 +21,7 @@
          CornerRadius="0"
          UseAeroCaptionButtons="False" />
     </WindowChrome.WindowChrome>
-    <ContentControl  prism:RegionManager.RegionName="MainRegion" />
+    <ContentControl Background="#1F1F1F"  prism:RegionManager.RegionName="MainRegion" />
     <!--
         <local:MainView />
     处理 MaterialDesignThemes 相关依赖问题的命令：

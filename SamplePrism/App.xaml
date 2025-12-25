@@ -8,7 +8,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="DeepPurple" SecondaryColor="LightBlue" />
+                <materialDesign:BundledTheme BaseTheme="Inherit" ColorAdjustment="{materialDesign:ColorAdjustment}" PrimaryColor="DeepPurple" SecondaryColor="Lime" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
                 <!--
                     (1)此方案是为了让MD2迁移到MD3 使用PrimaryHueMidBrush的临时过渡措施 这样就可以使用动态资源PrimaryHueMidBrush了
