@@ -21,7 +21,6 @@ namespace ModuleA.Module
             #endregion
 
             #region 无需导航使用type
-
             regionManager.RegisterViewWithRegion("leftRegion", typeof(ModuleSubA1.Views.SubViewA1));
             regionManager.RegisterViewWithRegion("rightRegion", typeof(ModuleSubA2.Views.SubViewA2));
             #endregion

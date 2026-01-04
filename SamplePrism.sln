@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shell", "Shell", "{3A587922
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialDesignToolkit.Module", "MaterialDesignToolkit.Module\MaterialDesignToolkit.Module.csproj", "{0075C469-A5A6-4329-945A-020BFB625CEF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialDesignButtons.Module", "MaterialDesignButtons.Module\MaterialDesignButtons.Module.csproj", "{D83ACB8A-03DE-45F8-8C2C-474F6F0BFB89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{0075C469-A5A6-4329-945A-020BFB625CEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0075C469-A5A6-4329-945A-020BFB625CEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0075C469-A5A6-4329-945A-020BFB625CEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D83ACB8A-03DE-45F8-8C2C-474F6F0BFB89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D83ACB8A-03DE-45F8-8C2C-474F6F0BFB89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D83ACB8A-03DE-45F8-8C2C-474F6F0BFB89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D83ACB8A-03DE-45F8-8C2C-474F6F0BFB89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +74,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{DFAFE58E-95A8-4C3B-8A4F-F9586268D0DB} = {3A587922-350D-4C26-ADEC-E7512406EA17}
 		{0075C469-A5A6-4329-945A-020BFB625CEF} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{D83ACB8A-03DE-45F8-8C2C-474F6F0BFB89} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9B32F770-C65F-49E8-A3F6-08647FFA436D}

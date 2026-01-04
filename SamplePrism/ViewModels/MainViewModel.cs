@@ -24,6 +24,7 @@ namespace SamplePrism.ViewModels
         #region Fileds
         IRegionManager _regionManager;
         DefaultView? _defaultView = null;
+        HomeView? _homeView = null;
         ViewA? _viewA = null;
         ButtonsView? _buttonsView = null;
         IContainerExtension _containerExtension;
@@ -52,8 +53,9 @@ namespace SamplePrism.ViewModels
             _dialogService = dialogService;
             DomainMenuItems = new List<DomainMenuItem>()
             {
-                new DomainMenuItem(1,"ButtonsView","ButtonsView",PackIconKind.AboutCircle,PackIconKind.ABCOff),
-                new DomainMenuItem(2,"CardsView","CardsView",PackIconKind.Cardholder,PackIconKind.IdCardOutline),
+                new DomainMenuItem(0,"HomeView","HomeView",PackIconKind.Home,PackIconKind.HomeOff),
+                new DomainMenuItem(1,"ButtonsView","MaterialDesignButtonsView",PackIconKind.AboutCircle,PackIconKind.ABCOff),
+                new DomainMenuItem(2,"CardsView","ButtonsView",PackIconKind.Cardholder,PackIconKind.IdCardOutline),
                 new DomainMenuItem(3,"CardsView","TogglesView",PackIconKind.Cardholder,PackIconKind.IdCardOutline),
                 new DomainMenuItem(4,"CardsView","FiledView",PackIconKind.Cardholder,PackIconKind.IdCardOutline),
                 new DomainMenuItem(5,"CardsView","TouchView",PackIconKind.Cardholder,PackIconKind.IdCardOutline),
@@ -92,6 +94,7 @@ namespace SamplePrism.ViewModels
             _defaultView = _containerExtension.Resolve<DefaultView>();
             _viewA = _containerExtension.Resolve<ViewA>();
             _buttonsView = _containerExtension.Resolve<ButtonsView>();
+            _homeView = _containerExtension.Resolve<HomeView>();
 
             IRegion mainRegion = _regionManager.Regions["MainViewRegion"];
             if (mainRegion != null)
@@ -99,8 +102,9 @@ namespace SamplePrism.ViewModels
                 mainRegion.Add(_defaultView);
                 mainRegion.Add(_viewA);
                 mainRegion.Add(_buttonsView);
+                mainRegion.Add(_homeView);
             }
-            mainRegion?.Activate(_buttonsView);
+            mainRegion?.Activate(_homeView);
             #endregion
         }
 

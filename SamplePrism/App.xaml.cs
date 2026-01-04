@@ -82,6 +82,7 @@ namespace SamplePrism
             moduleCatalog.AddModule<ModuleB.Module.ModuleB>();
             moduleCatalog.AddModule<ModuleSubA1.Module.ModuleSubA1>();
             moduleCatalog.AddModule<ModuleSubA2.Module.ModuleSubA2>();
+            moduleCatalog.AddModule<MaterialDesignButtons.Module.MaterialDesignButtonsModule>();
         }
 
         protected override void ConfigureRegionAdapterMappings(RegionAdapterMappings regionAdapterMappings)

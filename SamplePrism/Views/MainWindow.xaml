@@ -21,7 +21,9 @@
          CornerRadius="0"
          UseAeroCaptionButtons="False" />
     </WindowChrome.WindowChrome>
-    <ContentControl Background="#1F1F1F"  prism:RegionManager.RegionName="MainRegion" />
+    <Border Background="#1F1F1F">
+        <ContentControl prism:RegionManager.RegionName="MainRegion" />
+    </Border>
     <!--
         <local:MainView />
     处理 MaterialDesignThemes 相关依赖问题的命令：

@@ -10,41 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SamplePrism.Views
 {
     /// <summary>
-    /// HomeView.xaml 的交互逻辑
+    /// SRSView.xaml 的交互逻辑
     /// </summary>
-    public partial class HomeView : UserControl
+    public partial class SRSView : UserControl
     {
-        public HomeView()
+        public SRSView()
         {
             InitializeComponent();
         }
-
-
-
-        #region Fileds
-        private string _name;
-        private int _age;
-        #endregion
-
-
-        #region Properties
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
-
-
-        public int Age
-        {
-            get { return _age; }
-            set { _age = value; }
-        }
-        #endregion
     }
 }
