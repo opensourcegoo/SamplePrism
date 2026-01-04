@@ -18,12 +18,35 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="Material Design Buttons View" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,20,0,20"/>
-        <StackPanel Grid.Row="1">
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
             <StackPanel.Resources>
                 <system:Double x:Key="iconSize">24</system:Double>
-                <system:Double x:Key="ButtonWidth">24</system:Double>
+                <system:Double x:Key="ButtonWidth">90</system:Double>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Margin" Value="18,0" />
+                </Style>
             </StackPanel.Resources>
-            <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}">
+            <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Margin="10,0">
+                <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
+            </Button>
+            <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Margin="10,0">
+                <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
+            </Button>
+            <Button Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}" Margin="10,0">
+                <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
+            </Button>
+            <Button Style="{StaticResource MaterialDesignFloatingActionMiniSecondaryLightButton}" Margin="10,0">
+                <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
+            </Button>
+
+            <Button Style="{StaticResource MaterialDesignFloatingActionMiniSecondaryButton}" Margin="10,0">
+                <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
+            </Button>
+            <Button Style="{StaticResource MaterialDesignFloatingActionMiniSecondaryDarkButton}" Margin="10,0">
+                <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
+            </Button>
+
+            <Button Style="{StaticResource MaterialDesignFloatingActionSecondaryButton}" Margin="10,0">
                 <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
             </Button>
         </StackPanel>
