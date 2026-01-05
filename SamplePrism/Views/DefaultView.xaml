@@ -22,9 +22,8 @@
                                 <RowDefinition Height="120" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-
                             <Border Grid.Row="0">
-                            
+
                             </Border>
                         </Grid>
                     </DataTemplate>
@@ -49,7 +48,9 @@
                  materialDesign:TextFieldAssist.HasLeadingIcon="True"
                  Style="{StaticResource MaterialDesignOutlinedTextBox}">
                     <!--<materialDesign:TextFieldAssist.LeadingIcon>
-                        --><!--<materialDesign:PackIconKind Kind="Home"/>--><!--
+                        -->
+                    <!--<materialDesign:PackIconKind Kind="Home"/>-->
+                    <!--
                         <materialDesign:PackIcon Kind="Account"/>
                     </materialDesign:TextFieldAssist.LeadingIcon>-->
                 </TextBox>
