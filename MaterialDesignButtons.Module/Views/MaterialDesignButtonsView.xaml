@@ -7,9 +7,9 @@
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:MaterialDesignButtons.Module.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="1000" d:DesignWidth="800" >
-    
-   <!--
+             d:DesignHeight="1000" d:DesignWidth="1200" >
+
+    <!--
         小计
         Material Design 里定义了 色阶 (Hue) + 亮度 (Lightness) + 饱和度 (Saturation)
         RaisedButton 的 默认背景色（你说的“中色”）是 PrimaryColor 的 中间亮度版本
@@ -21,7 +21,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="Material Design Buttons View" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,20,0,20"/>
-        <ScrollViewer Grid.Row="1">
+        <ScrollViewer Margin="0,68,0,2" Grid.RowSpan="2">
             <ScrollViewer.Resources>
                 <system:Double x:Key="iconSize">24</system:Double>
                 <system:Double x:Key="ButtonWidth">90</system:Double>
@@ -39,8 +39,14 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <!--MaterialDesignFloatingActionMiniLightButton一般用于强调次要操作，通常具有较浅的背景色和较低的视觉优先级。-->
                     <StackPanel.Resources>
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="Margin" Value="18,0" />
@@ -70,55 +76,32 @@
                     </Button>
                 </StackPanel>
 
-                <StackPanel Grid.Row="1" Orientation="Horizontal">
-                    <Button Style="{StaticResource MaterialDesignFlatLightButton}" Margin="10,0" >
-                        <!--materialDesign:PackIconKind 使用来支持引用类型使用 例如：{x:Type materialDesign:PackIconKind}-->
-                        <materialDesign:PackIcon Width="{StaticResource  iconSize}" Kind="Alarm" />
-                    </Button>
-
-                    <Button Style="{StaticResource MaterialDesignFlatButton}" Margin="10,0">
-                        <materialDesign:PackIcon Width="{StaticResource  iconSize}" Kind="Alarm" />
-                    </Button>
-
-                    <Button Style="{StaticResource MaterialDesignFlatDarkButton}" Margin="10,0">
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,10,0,0" Tag="FloatingAction">
+                    <Button Style="{StaticResource MaterialDesignFloatingActionLightButton}" Margin="10,0">
                         <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
                     </Button>
 
-                    <Button Style="{StaticResource MaterialDesignFlatSecondaryLightButton}" Margin="10,0">
+                    <Button Style="{StaticResource MaterialDesignFloatingActionButton}" Margin="10,0">
                         <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
                     </Button>
 
-                    <Button Style="{StaticResource MaterialDesignFlatSecondaryButton}" Margin="10,0">
+                    <Button Style="{StaticResource MaterialDesignFloatingActionDarkButton}" Margin="10,0">
+                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignFloatingActionSecondaryLightButton}" Margin="10,0">
+                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
+                    </Button>
+
+                    <Button Style="{StaticResource MaterialDesignFloatingActionSecondaryButton}" Margin="10,0">
+                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
+                    </Button>
+
+                    <Button Style="{StaticResource MaterialDesignFloatingActionSecondaryDarkButton}" Margin="10,0">
                         <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
                     </Button>
                 </StackPanel>
-                <StackPanel Grid.Row="3" Orientation="Horizontal">
-                    <Button Style="{StaticResource  MaterialDesignFlatLightBgButton}" Margin="10,0">
-                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
-                    </Button>
 
-                    <Button Style="{StaticResource MaterialDesignFlatMidBgButton}" Margin="10,0">
-                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
-                    </Button>
-
-                    <Button Style="{StaticResource MaterialDesignFlatDarkBgButton}" Margin="10,0">
-                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
-                    </Button>
-
-                    <Button Style="{StaticResource MaterialDesignFlatSecondaryLightBgButton}" Margin="10,0">
-                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
-                    </Button>
-
-                    <Button Style="{StaticResource MaterialDesignFlatSecondaryMidBgButton}" Margin="10,0">
-                        <materialDesign:PackIcon  Kind="Alarm" Width="{StaticResource iconSize}" />
-                    </Button>
-
-                    <Button Style="{StaticResource MaterialDesignFlatSecondaryDarkBgButton}" Margin="10,0" >
-                        <materialDesign:PackIcon Kind="Alarm"  Width="{StaticResource iconSize}"/>
-                    </Button>
-                </StackPanel>
-
-                <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,10,0,0">
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
                     <Button Style="{StaticResource MaterialDesignRaisedLightButton}" Margin="10,0">
                         <materialDesign:PackIcon Kind="Alarm" Width="{StaticResource iconSize}" />
                     </Button>
@@ -143,7 +126,10 @@
                         <materialDesign:PackIcon Kind="Alarm" Width="{StaticResource iconSize}" />
                     </Button>
                 </StackPanel>
-                <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="0,10,0,0">
+
+
+
+                <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,10,0,0">
                     <Button Style="{StaticResource MaterialDesignPaperLightButton}" Margin="10,0" >
                         <materialDesign:PackIcon Kind="Alarm" Width="{StaticResource iconSize}" />
                     </Button>
@@ -169,7 +155,103 @@
                     </Button>
                 </StackPanel>
 
+                <StackPanel Grid.Row="4" Orientation="Horizontal">
+                    <!--MaterialDesignFlatLightButton一般用于强调次要操作，通常具有较浅的背景色和较低的视觉优先级。-->
+                    <Button Style="{StaticResource MaterialDesignFlatLightButton}" Margin="10,0" >
+                        <!--materialDesign:PackIconKind 使用来支持引用类型使用 例如：{x:Type materialDesign:PackIconKind}-->
+                        <materialDesign:PackIcon Width="{StaticResource  iconSize}" Kind="Alarm" />
+                    </Button>
+
+                    <Button Style="{StaticResource MaterialDesignFlatButton}" Margin="10,0">
+                        <materialDesign:PackIcon Width="{StaticResource  iconSize}" Kind="Alarm" />
+                    </Button>
+
+                    <Button Style="{StaticResource MaterialDesignFlatDarkButton}" Margin="10,0">
+                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
+                    </Button>
+
+                    <Button Style="{StaticResource MaterialDesignFlatSecondaryLightButton}" Margin="10,0">
+                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
+                    </Button>
+
+                    <Button Style="{StaticResource MaterialDesignFlatSecondaryButton}" Margin="10,0">
+                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
+                    </Button>
+
+                    <Button Style="{StaticResource MaterialDesignFlatSecondaryDarkButton}" Margin="10,0">
+                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="0,10,0,0">
+                    <Button Style="{StaticResource MaterialDesignOutlinedLightButton}" Margin="10,0" >
+                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignOutlinedButton}" Margin="10,0" >
+                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignOutlinedDarkButton}" Margin="10,0" >
+                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
+                    </Button>
+
+                    <Button Style="{StaticResource MaterialDesignOutlinedSecondaryLightButton}" Margin="10,0" >
+                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignOutlinedSecondaryButton}" Margin="10,0" >
+                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignOutlinedSecondaryDarkButton}" Margin="10,0" >
+                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
+                    </Button>
+
+                </StackPanel>
+
                 <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="0,10,0,0">
+                    <!--MaterialDesignFlatLightBgButton 一般用来表示在浅色背景上的按钮，通常具有较浅的背景色以确保在浅色背景上仍然可见。-->
+                    <Button Style="{StaticResource  MaterialDesignFlatLightBgButton}" Margin="10,0">
+                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
+                    </Button>
+
+                    <Button Style="{StaticResource MaterialDesignFlatMidBgButton}" Margin="10,0">
+                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
+                    </Button>
+
+                    <Button Style="{StaticResource MaterialDesignFlatDarkBgButton}" Margin="10,0">
+                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
+                    </Button>
+
+                    <Button Style="{StaticResource MaterialDesignFlatSecondaryLightBgButton}" Margin="10,0">
+                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
+                    </Button>
+
+                    <Button Style="{StaticResource MaterialDesignFlatSecondaryMidBgButton}" Margin="10,0">
+                        <materialDesign:PackIcon  Kind="Alarm" Width="{StaticResource iconSize}" />
+                    </Button>
+
+                    <Button Style="{StaticResource MaterialDesignFlatSecondaryDarkBgButton}" Margin="10,0" >
+                        <materialDesign:PackIcon Kind="Alarm"  Width="{StaticResource iconSize}"/>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Grid.Row="7" Orientation="Horizontal" Margin="0,10,0,0">
+                    <Button Style="{StaticResource MaterialDesignRaisedLightButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="LIGHT" />
+                    <Button Style="{StaticResource MaterialDesignRaisedButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="MID" />
+                    <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="DARK" />
+                    <Button Style="{StaticResource MaterialDesignRaisedSecondaryLightButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="LIGHT" />
+                    <Button Style="{StaticResource MaterialDesignRaisedSecondaryButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="MID" />
+                    <Button Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="DARK" />
+                </StackPanel>
+
+                <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="0,10,0,0">
+                    <Button Style="{StaticResource MaterialDesignPaperLightButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="LIGHT" />
+                    <Button Style="{StaticResource MaterialDesignPaperButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="MID" />
+                    <Button Style="{StaticResource MaterialDesignPaperDarkButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="DARK" />
+                    <Button Style="{StaticResource MaterialDesignPaperSecondaryLightButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="LIGHT" />
+                    <Button Style="{StaticResource MaterialDesignPaperSecondaryButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="MID" />
+                    <Button Style="{StaticResource MaterialDesignPaperSecondaryDarkButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="DARK" />
+                </StackPanel>
+
+                <StackPanel Grid.Row="9" Orientation="Horizontal" Margin="0,10,0,0">
                     <Button Style="{StaticResource MaterialDesignFlatLightButton}" Margin="10,0" Width="{StaticResource ButtonWidth}" Content="LIGHT" />
                     <Button Style="{StaticResource MaterialDesignFlatButton}" Margin="10,0" Width="{StaticResource ButtonWidth}" Content="MID" />
                     <Button Style="{StaticResource MaterialDesignFlatDarkButton}" Margin="10,0" Width="{StaticResource ButtonWidth}" Content="DARK" />
@@ -177,57 +259,31 @@
                     <Button Style="{StaticResource MaterialDesignFlatSecondaryButton}" Margin="10,0" Width="{StaticResource ButtonWidth}" Content="MID" />
                     <Button Style="{StaticResource MaterialDesignFlatSecondaryDarkButton}" Margin="10,0" Width="{StaticResource ButtonWidth}" Content="DARK" />
                 </StackPanel>
-                <StackPanel Grid.Row="7" Orientation="Horizontal" Margin="0,10,0,0">
+
+                <StackPanel Grid.Row="10" Orientation="Horizontal" Margin="0,10,0,0" Tag="outline">
+                    <Button Style="{StaticResource MaterialDesignOutlinedLightButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="LIGHT" />
+                    <Button Style="{StaticResource MaterialDesignOutlinedButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="MID" />
+                    <Button Style="{StaticResource MaterialDesignOutlinedDarkButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="DARK" />
+                    <Button Style="{StaticResource MaterialDesignOutlinedSecondaryLightButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="LIGHT" />
+                    <Button Style="{StaticResource MaterialDesignOutlinedSecondaryButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="MID" />
+                    <Button Style="{StaticResource MaterialDesignOutlinedSecondaryDarkButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="DARK" />
+                </StackPanel>
+
+
+                <StackPanel Grid.Row="11" Orientation="Horizontal" Margin="0,10,0,0">
                     <Button Style="{StaticResource MaterialDesignFlatLightBgButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="LIGHTBG" />
                     <Button Style="{StaticResource MaterialDesignFlatMidBgButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="MIDBG" />
                     <Button Style="{StaticResource MaterialDesignFlatDarkBgButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="DarkBg" />
-
                     <Button Style="{StaticResource MaterialDesignFlatSecondaryLightBgButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="LIGHTBG" />
                     <Button Style="{StaticResource MaterialDesignFlatSecondaryMidBgButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="MIDBG" />
                     <Button Style="{StaticResource MaterialDesignFlatSecondaryDarkBgButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="DarkBg" />
                 </StackPanel>
 
-                <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="0,10,0,0" Tag="outline">
-                    <Button Style="{StaticResource MaterialDesignOutlinedLightButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="LIGHT" />
-                    <Button Style="{StaticResource MaterialDesignOutlinedButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="MID" />
-                    <Button Style="{StaticResource MaterialDesignOutlinedDarkButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="DARK" />
 
-                    <Button Style="{StaticResource MaterialDesignOutlinedSecondaryLightButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="LIGHT" />
-                    <Button Style="{StaticResource MaterialDesignOutlinedSecondaryButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="MID" />
-                    <Button Style="{StaticResource MaterialDesignOutlinedSecondaryDarkButton}" Width="{StaticResource ButtonWidth}" Margin="10,0" Content="DARK" />
-                    
-                </StackPanel>
-
-                <StackPanel Grid.Row="9" Orientation="Horizontal" Margin="0,10,0,0" Tag="FloatingAction">
-                    <Button Style="{StaticResource MaterialDesignFloatingActionLightButton}" Margin="10,0">
-                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
-                    </Button>
-
-                    <Button Style="{StaticResource MaterialDesignFloatingActionButton}" Margin="10,0">
-                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
-                    </Button>
-
-                    <Button Style="{StaticResource MaterialDesignFloatingActionDarkButton}" Margin="10,0">
-                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
-                    </Button>
-                    <Button Style="{StaticResource MaterialDesignFloatingActionSecondaryLightButton}" Margin="10,0">
-                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
-                    </Button>
-
-                    <Button Style="{StaticResource MaterialDesignFloatingActionSecondaryButton}" Margin="10,0">
-                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
-                    </Button>
-                    <Button Style="{StaticResource MaterialDesignFloatingActionSecondaryDarkButton}" Margin="10,0">
-                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
-                    </Button>
-
-                </StackPanel>
-
-                <StackPanel Grid.Row="10" Orientation="Horizontal" Margin="0,10,0,0" Tag="FloatingAction">
+                <StackPanel Grid.Row="12" Orientation="Horizontal" Margin="0,0,0,0" Tag="FloatingAction">
                     <materialDesign:Badged Badge="3" Margin="10">
                         <Button Content="mail"/>
                     </materialDesign:Badged>
-
                     <materialDesign:Badged Badge="!" BadgeBackground="Red" Margin="0,10,10,0" >
                         <Button Content="alert"/>
                     </materialDesign:Badged>
@@ -243,25 +299,31 @@
                     <materialDesign:Badged Badge="New" BadgeBackground="Blue" Margin="0,10,10,0" >
                         <Button Content="updates"/>
                     </materialDesign:Badged>
-                    
+
                     <materialDesign:Badged Badge="Dangerous" BadgeChangedStoryboard="{StaticResource BadgeChangedStoryboard}" BadgeColorZoneMode="SecondaryMid" Margin="0,10,10,0">
-                        <Button Content="warning"/> 
+                        <Button Content="warning"/>
                     </materialDesign:Badged>
 
                     <materialDesign:Badged Badge="{materialDesign:PackIcon Kind=Star}" BadgeBackground="Purple" Margin="0,10,10,0" >
                         <Button Content="favorites"/>
                     </materialDesign:Badged>
 
-                    <!--<Button Style="{StaticResource MaterialDesignOutlinedSecondaryDarkButton}" Margin="10,0" Content="Light">
-                    </Button>
 
-                    <Button Style="{StaticResource MaterialDesignFloatingActionButton}" Margin="10,0">
-                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
-                    </Button>
-                    <Button Style="{StaticResource MaterialDesignFloatingActionDarkButton}" Margin="10,0">
-                        <materialDesign:PackIcon Width="{StaticResource iconSize}" Kind="Alarm" />
-                    </Button>-->
+                </StackPanel>
 
+                <StackPanel Grid.Row="13" Orientation="Horizontal">
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type materialDesign:Badged}">
+                            <Setter Property="Margin" Value="0,10,10,0" />
+                        </Style>
+                    </StackPanel.Resources>
+                    <materialDesign:Badged x:Name="CountingBadge" Badge="{Binding BadgeClickMeCount}" BadgeBackground="GreenYellow"  >
+                        <Button Content="CLICK ME" Command="{Binding ClickMeCommand}" ToolTip="Click me count"/>
+                    </materialDesign:Badged>
+
+                    <Button Content="{Binding IncrementOrClickMeCount}" Style="{StaticResource MaterialDesignRaisedSecondaryLightButton}" Command="{Binding IncrementOrClickMeCommand}" ContentStringFormat="Increment Or Click Me {0}" ToolTip="Increment Or Click me count" Margin="0,10,0,0"/>
+
+                    <Button Content="{materialDesign:PackIcon Kind=AirplaneTakeoff}" Margin="10,10,10,0" ToolTip="icon" />
                 </StackPanel>
             </Grid>
         </ScrollViewer>
