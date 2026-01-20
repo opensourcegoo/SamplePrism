@@ -223,8 +223,9 @@
 
                 </StackPanel>
 
-                <StackPanel Grid.Row="10" Orientation="Horizontal" Margin="0,10,0,0" Tag="FloatingAction">
-                    <materialDesign:Badged Badge="3" Margin="10">
+                <!--Badged是一个object?类型 可以是文字也可以是图标或者其他类型-->
+                <StackPanel Grid.Row="10" Orientation="Horizontal" Margin="0,10,0,0" Tag="带有提示图标 badged">
+                    <materialDesign:Badged Badge="3" x:Name="badge" Margin="10">
                         <Button Content="mail"/>
                     </materialDesign:Badged>
 
