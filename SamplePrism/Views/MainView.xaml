@@ -11,14 +11,14 @@
         mc:Ignorable="d"  d:DesignWidth="1200" d:DesignHeight="900">
     <UserControl.Resources>
         <!-- Prism Region 切换动画（右 → 左滑入） -->
-        <Style x:Key="PrismRegionSlideTransitionStyle" TargetType="ContentControl">
+        <!--<Style x:Key="PrismRegionSlideTransitionStyle" TargetType="ContentControl">
             <Setter Property="RenderTransform">
                 <Setter.Value>
                     <TranslateTransform />
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
-                <!-- 当内容第一次加载时不播放动画 -->
+                --><!-- 当内容第一次加载时不播放动画 --><!--
                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Content}" Value="{x:Null}">
                     <Setter Property="RenderTransform">
                         <Setter.Value>
@@ -27,7 +27,7 @@
                     </Setter>
                 </DataTrigger>
 
-                <!-- 进入动画：从右滑入 -->
+                --><!-- 进入动画：从右滑入 --><!--
                 <EventTrigger RoutedEvent="Loaded">
                     <BeginStoryboard>
                         <Storyboard>
@@ -45,7 +45,7 @@
                     </BeginStoryboard>
                 </EventTrigger>
 
-                <!-- 离开动画：往左滑出（Prism 会把旧视图暂时保留用于动画） -->
+                --><!-- 离开动画：往左滑出（Prism 会把旧视图暂时保留用于动画） --><!--
                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=(prism:RegionManager.RegionName)}" Value="MainViewRegion">
                     <DataTrigger.EnterActions>
                         <RemoveStoryboard />
@@ -68,7 +68,7 @@
                     </DataTrigger.ExitActions>
                 </DataTrigger>
             </Style.Triggers>
-        </Style>
+        </Style>-->
     </UserControl.Resources>
 
     <behavior:Interaction.Triggers>
@@ -76,7 +76,7 @@
             <prism:InvokeCommandAction Command="{Binding LoadCommand}" CommandParameter="DefaultView" />
         </behavior:EventTrigger>
     </behavior:Interaction.Triggers>
-    <Grid >
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition />

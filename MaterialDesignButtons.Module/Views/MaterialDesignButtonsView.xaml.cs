@@ -23,6 +23,7 @@ namespace MaterialDesignButtons.Module.Views
         public MaterialDesignButtonsView()
         {
             InitializeComponent();
+            //this.btn_repeat.Background = MaterialDesignColors.SecondaryColor.LightBlue;
         }
 
 

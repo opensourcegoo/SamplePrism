@@ -15,6 +15,7 @@
         RaisedButton 的 默认背景色（你说的“中色”）是 PrimaryColor 的 中间亮度版本
         它看起来接近原色，但已经经过微调，“中色 ≈ 原色”只是视觉上接近，但不是真正原色
     -->
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -321,9 +322,31 @@
                         <Button Content="CLICK ME" Command="{Binding ClickMeCommand}" ToolTip="Click me count"/>
                     </materialDesign:Badged>
 
+                    <!--使用ContentStringFormat-->
                     <Button Content="{Binding IncrementOrClickMeCount}" Style="{StaticResource MaterialDesignRaisedSecondaryLightButton}" Command="{Binding IncrementOrClickMeCommand}" ContentStringFormat="Increment Or Click Me {0}" ToolTip="Increment Or Click me count" Margin="0,10,0,0"/>
 
+                    <!--内容是图标的按钮-->
                     <Button Content="{materialDesign:PackIcon Kind=AirplaneTakeoff}" Margin="10,10,10,0" ToolTip="icon" />
+
+                    <!--自定义涟漪颜色的按钮 customer ripple-->
+                    <Button Content="Csutomer Ripple" Margin="10,10,10,0" Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}" ToolTip="Csutomer Ripple">
+                        <materialDesign:RippleAssist.Feedback>
+                            <SolidColorBrush Color="Red" Opacity="1"/>
+                        </materialDesign:RippleAssist.Feedback>
+                    </Button>
+
+                    <!--没有涟漪效果的按钮 NO ripple-->
+                    <Button Content="NO Ripple" Margin="10,10,10,0"  Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}" ToolTip="NO Ripple">
+                        <materialDesign:RippleAssist.IsDisabled>true</materialDesign:RippleAssist.IsDisabled>
+                    </Button>
+
+                    
+                    <RepeatButton x:Name="btn_repeat" Background="{DynamicResource MaterialDesign.Brush.Secondary.Light}" Content="RepeatButton" Margin="10,10,10,0">
+                        
+                    </RepeatButton>
+                    
+                    
+                    
                 </StackPanel>
             </Grid>
         </ScrollViewer>
