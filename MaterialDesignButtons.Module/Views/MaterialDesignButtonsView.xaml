@@ -7,7 +7,7 @@
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:MaterialDesignButtons.Module.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="1000" d:DesignWidth="1200" >
+             d:DesignHeight="1500" d:DesignWidth="1200" >
 
     <!--
         小计
@@ -15,7 +15,7 @@
         RaisedButton 的 默认背景色（你说的“中色”）是 PrimaryColor 的 中间亮度版本
         它看起来接近原色，但已经经过微调，“中色 ≈ 原色”只是视觉上接近，但不是真正原色
     -->
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -29,6 +29,8 @@
             </ScrollViewer.Resources>
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
@@ -312,7 +314,7 @@
 
                 </StackPanel>
 
-                <StackPanel Grid.Row="13" Orientation="Horizontal">
+                <StackPanel Grid.Row="13" Orientation="Horizontal" Margin="10,0,0,0">
                     <StackPanel.Resources>
                         <Style TargetType="{x:Type materialDesign:Badged}">
                             <Setter Property="Margin" Value="0,10,10,0" />
@@ -340,15 +342,100 @@
                         <materialDesign:RippleAssist.IsDisabled>true</materialDesign:RippleAssist.IsDisabled>
                     </Button>
 
-                    
-                    <RepeatButton x:Name="btn_repeat" Background="{DynamicResource MaterialDesign.Brush.Secondary.Light}" Content="RepeatButton" Margin="10,10,10,0">
-                        
-                    </RepeatButton>
-                    
-                    
-                    
+
+
                 </StackPanel>
+                <StackPanel Grid.Row="14" Orientation="Horizontal" Margin="10,10,0,0">
+                    <RepeatButton Background="{DynamicResource MaterialDesign.Brush.Primary.Light}" Content="Repeat-Primary-Light" Margin="0,10,0,10"/>
+                    <RepeatButton Background="{DynamicResource MaterialDesign.Brush.Primary}" Content="Repeat-Primary-Light" Margin="10,10,0,10"/>
+                    <RepeatButton Background="{DynamicResource MaterialDesign.Brush.Primary.Dark}" Content="Repaat-Primary-Dark" Margin="10,10,0,10"/>
+                    <RepeatButton Background="{DynamicResource MaterialDesign.Brush.Secondary.Light}" Content="Repeat-Secondary-Light" Margin="10,10,0,10"/>
+                    <RepeatButton Background="{DynamicResource MaterialDesign.Brush.Secondary}" Content="Repeat-Secondary-Light" Margin="10,10,0,10"/>
+                    <RepeatButton Background="{DynamicResource MaterialDesign.Brush.Secondary.Dark}" Content="Repaat-Secondary-Dark" Margin="10,10,0,10"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="15" Orientation="Horizontal" Margin="10,0,0,0">
+                    <Button Margin="10,10,0,0" Style="{StaticResource MaterialDesignIconButton}" ToolTip="MaterialDesignIconButton">
+                        <materialDesign:PackIcon Kind="Play" />
+                    </Button>
+
+                    <Button Margin="10,10,0,0" Style="{StaticResource MaterialDesignIconForegroundButton}" ToolTip="MaterialDesignIconForegroundButton">
+                        <materialDesign:PackIcon Kind="Play" />
+                    </Button>
+
+                    <Button Margin="10,10,0,0" Background="{DynamicResource MaterialDesign.Brush.TextBox.FilledBackground}" Style="{StaticResource MaterialDesignIconButton}" ToolTip="MaterialDesign.Brush.TextBox.FilledBackground">
+                        <materialDesign:PackIcon Kind="Play" />
+                    </Button>
+                </StackPanel>
+
+                <!--分割线-->
+                <Border Grid.Row="16" Height="1" BorderThickness="1" Margin="10,25,0,10" BorderBrush="{DynamicResource MaterialDesign.Brush.TextBox.HoverBackground}" />
+                <!--<Rectangle Grid.Row="17" Height="1" Margin="10,25,0,10" Fill="{DynamicResource MaterialDesign.Brush.TextBox.HoverBackground}" />-->
+
+                <Grid Grid.Row="18"  Margin="10,0,0,0">
+                    <Grid.Resources>
+                        <system:Double x:Key="ButtonHeight">50</system:Double>
+                    </Grid.Resources>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Buttons With Customer Corner Radius" Margin="0,20" Style="{StaticResource MaterialDesignHeadline5TextBlock}" />
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Button Style="{DynamicResource MaterialDesignRaisedLightButton}" Margin="10,10,0,10" materialDesign:ButtonAssist.CornerRadius="5" Content="5/50 Radius" />
+                        <Button Style="{DynamicResource MaterialDesignRaisedButton}" Margin="10,10,0,10" materialDesign:ButtonAssist.CornerRadius="10" Content="10/50 Radius" />
+                        <Button Style="{DynamicResource MaterialDesignRaisedDarkButton}" Margin="10,10,0,10" materialDesign:ButtonAssist.CornerRadius="25" Content="25/50 Radius" />
+                        <Button Style="{DynamicResource MaterialDesignRaisedSecondaryButton}" Margin="10,10,0,10" materialDesign:ButtonAssist.CornerRadius="25,25,0,0" Content="25/50 Radius" />
+                    </StackPanel>
+
+                    <TextBlock Grid.Row="2" Text="Buttons With Progress" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Margin="0,20"/>
+                    <StackPanel Grid.Row="3" Orientation="Horizontal">
+                        <Grid>
+                            <!--带有进度指示器的按钮-->
+                            <Button Command="{Binding DismissCommand}" Margin="2,0" Width="100" 
+                                    materialDesign:ButtonProgressAssist.IsIndicatorVisible="True" 
+                                    materialDesign:ButtonProgressAssist.Value="{Binding DismissProgress}"
+                                    materialDesign:ButtonProgressAssist.IsIndeterminate="False" Visibility="{Binding IsShowDismissButton,Converter={x:Static materialDesign:BooleanToVisibilityConverter.CollapsedInstance}}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Dismiss" />
+                                    <materialDesign:PackIcon Kind="Close" Margin="2" />
+                                </StackPanel>
+                            </Button>
+                            <TextBlock Text="{Binding RestartCountDownText}" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding IsShowDismissButton,Converter={x:Static materialDesign:BooleanToVisibilityConverter.NotCollapsedInstance}}" />
+                        </Grid>
+
+                        <Button Margin="2,0" materialDesign:ButtonProgressAssist.IsIndeterminate="True" materialDesign:ButtonProgressAssist.IsIndicatorVisible="True" 
+                                materialDesign:ButtonProgressAssist.Value="80" Content="Indeterminate" IsEnabled="True" />
+
+                        <Button Margin="2,0" materialDesign:ButtonProgressAssist.IsIndeterminate="False" materialDesign:ButtonProgressAssist.IsIndicatorVisible="True" 
+                                materialDesign:ButtonProgressAssist.Value="80" Content="Indeterminate" IsEnabled="True" />
+
+                    </StackPanel>
+
+
+
+
+                    <!--<Button Margin="10,10,0,0" Style="{StaticResource MaterialDesignIconButton}">
+                        <materialDesign:PackIcon Kind="Play" />
+                    </Button>
+
+                    <Button Margin="10,10,0,0" Style="{StaticResource MaterialDesignIconForegroundButton}" ToolTip="MaterialDesignIconForegroundButton">
+                        <materialDesign:PackIcon Kind="Play" />
+                    </Button>
+
+                    <Button Margin="10,10,0,0" Background="{DynamicResource MaterialDesign.Brush.TextBox.FilledBackground}" Style="{StaticResource MaterialDesignIconButton}" ToolTip="MaterialDesign.Brush.TextBox.FilledBackground">
+                        <materialDesign:PackIcon Kind="Play" />
+                    </Button>-->
+                </Grid>
             </Grid>
         </ScrollViewer>
     </Grid>
 </UserControl>
+
+    
