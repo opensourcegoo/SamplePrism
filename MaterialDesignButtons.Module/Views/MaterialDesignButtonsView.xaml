@@ -414,7 +414,7 @@
                                 materialDesign:ButtonProgressAssist.Value="80" Content="Indeterminate" IsEnabled="True" />
 
                         <Button Margin="2,0" materialDesign:ButtonProgressAssist.IsIndeterminate="False" materialDesign:ButtonProgressAssist.IsIndicatorVisible="True" 
-                                materialDesign:ButtonProgressAssist.Value="80" Content="Indeterminate" IsEnabled="True" />
+                                materialDesign:ButtonProgressAssist.Value="60" Content="Indeterminate" IsEnabled="True" />
 
                     </StackPanel>
 
