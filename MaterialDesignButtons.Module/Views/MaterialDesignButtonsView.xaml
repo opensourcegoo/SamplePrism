@@ -426,11 +426,51 @@
                     <!--TargetType="materialDesign:PackIcon"
         BasedOn="{StaticResource {x:Type materialDesign:PackIcon}}">-->
                     <StackPanel Grid.Row="4" Orientation="Horizontal">
-                        <Button Margin="10,10,0,10" Style="{StaticResource MaterialDesignFloatingActionButton}">
+                        <Button Margin="10,10,0,10" Style="{StaticResource MaterialDesignFloatingActionButton}" Command="{Binding SaveCommand}"
+                                
+                                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.Value="-1">
                             <materialDesign:PackIcon>
                                 <materialDesign:PackIcon.Style>
-                                    <Style TargetType="{x:Type materialDesign:PackIcon}" BasedOn="{StaticResource {x:Type materialDesign:PackIcon} }">
-                                        <!--<Setter Property="Kind" Value="Abc" />-->
+                                    <Style TargetType="materialDesign:PackIcon" BasedOn="{StaticResource {x:Type materialDesign:PackIcon} }">
+                                        <Setter Property="Kind" Value="CloudSync" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsSaveComplete}" Value="True">
+                                                <DataTrigger.EnterActions>
+                                                    <!--<BeginStoryboard>
+                                                        <Storyboard>
+                                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)" To="360" Duration="0:0:1" RepeatBehavior="Forever" />
+                                                        </Storyboard>
+                                                    </BeginStoryboard>-->
+
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:1.5">
+                                                                
+                                                            </DoubleAnimation>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.EnterActions>
+                                                <Setter Property="Kind" Value="Check" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </materialDesign:PackIcon.Style>
+                            </materialDesign:PackIcon>
+                        </Button>
+
+                        <Button Margin="10,10,0,10" Style="{StaticResource MaterialDesignFloatingActionButton}"
+                                materialDesign:ButtonProgressAssist.IsIndeterminate="True" materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.Value="-1">     
+                            <materialDesign:PackIcon>
+                                <materialDesign:PackIcon.Style>
+                                    <Style TargetType="materialDesign:PackIcon" BasedOn="{StaticResource {x:Type materialDesign:PackIcon} }">
+                                        <Setter Property="Kind" Value="CloudSync" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsSyncing}" Value="True">
+                                                <Setter Property="Kind" Value="CloudSyncOutline" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
                                     </Style>
                                 </materialDesign:PackIcon.Style>
                             </materialDesign:PackIcon>

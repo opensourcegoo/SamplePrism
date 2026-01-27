@@ -53,6 +53,21 @@ namespace MaterialDesignButtons.Module.ViewModels
             set => SetProperty(ref _dismissProgress, value);
         }
 
+        private bool _isSaveComplete = false;
+        public bool IsSaveComplete
+        {
+            get => _isSaveComplete;
+            set => SetProperty(ref _isSaveComplete, value);
+        }
+
+        private bool _isSaving = false;
+        public bool IsSaving
+        {
+            get => _isSaving;
+            set => SetProperty(ref _isSaving, value);
+        }
+
+
 
         #endregion
 
@@ -62,6 +77,8 @@ namespace MaterialDesignButtons.Module.ViewModels
         public DelegateCommand IncrementOrClickMeCommand { get; set; }
 
         public DelegateCommand DismissCommand { get; set; }
+
+        public DelegateCommand SaveCommand { get; set; }
         #endregion
 
         #region Constructor
@@ -70,8 +87,23 @@ namespace MaterialDesignButtons.Module.ViewModels
             ClickMeCommand = new DelegateCommand(OnClickMe);
             IncrementOrClickMeCommand = new DelegateCommand(OnIncrementOrClickMe);
             DismissCommand = new DelegateCommand(ExecuteDismissCommand);
+            SaveCommand = new DelegateCommand(ExecuteSaveCommand);
             BadgeClickMeCount = 0;
             IncrementOrClickMeCount = 0;
+        }
+
+        private void ExecuteSaveCommand()
+        {
+            if (!IsSaveComplete)
+            {
+                IsSaveComplete = true;
+            }
+            else
+            {
+                IsSaveComplete = false;
+                return;
+            }
+            IsSaving = true;
         }
         #endregion
 
@@ -110,7 +142,7 @@ namespace MaterialDesignButtons.Module.ViewModels
         {
             DateTime _currentTime = DateTime.Now;
             DateTime demoRestartCountdownComplete = DateTime.Now;
-            
+
             //_isDismisseRequired = true;
             int i = 0;
             //long totalDuration = TimeSpan.FromMicroseconds(5000).Ticks;
@@ -118,7 +150,7 @@ namespace MaterialDesignButtons.Module.ViewModels
             {
                 if (IsShowDismissButton)
                 {
-                     long totalDuration = _currentTime.AddSeconds(3).Ticks - _currentTime.Ticks;
+                    long totalDuration = _currentTime.AddSeconds(3).Ticks - _currentTime.Ticks;
                     //long totalDuration = TimeSpan.FromMilliseconds(5000).Ticks;
                     long currentDuration = DateTime.Now.Ticks - _currentTime.Ticks;
                     double autoCountdownPercentComplete = 100.0 / totalDuration * currentDuration;
@@ -126,9 +158,9 @@ namespace MaterialDesignButtons.Module.ViewModels
 
                     if (autoCountdownPercentComplete >= 100)
                     {
-                        
+
                         //demoRestartCountdownComplete.AddSeconds(33);
-                        _isDismisseRequired = false;    
+                        _isDismisseRequired = false;
                         IsShowDismissButton = false;
                     }
                     //RestartCountDownText = string.Format("{0}", i++);
@@ -147,7 +179,7 @@ namespace MaterialDesignButtons.Module.ViewModels
         }
 
         private void UpdateDemoRestartCountdownText(DateTime endTime, out bool isComplete)
-        {   
+        {
             var span = endTime - DateTime.Now;
             var seconds = Math.Round(span.TotalSeconds < 0 ? 0 : span.TotalSeconds);
             RestartCountDownText = "Demo in " + seconds;
