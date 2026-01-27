@@ -24,9 +24,8 @@ namespace MaterialDesignButtons.Module.Views
         {
             InitializeComponent();
             //this.btn_repeat.Background = MaterialDesignColors.SecondaryColor.LightBlue;
+            uint x = 20;
+            string c = Convert.ToString(x,16);
         }
-
-
-
     }
 }
