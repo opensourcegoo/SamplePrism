@@ -67,6 +67,14 @@ namespace MaterialDesignButtons.Module.ViewModels
             set => SetProperty(ref _isSaving, value);
         }
 
+        private double _saveProgress;
+        public double SaveProgress
+        {
+            get => _saveProgress;
+            set => SetProperty(ref _saveProgress, value);
+        }
+
+
 
 
         #endregion
@@ -79,7 +87,10 @@ namespace MaterialDesignButtons.Module.ViewModels
         public DelegateCommand DismissCommand { get; set; }
 
         public DelegateCommand SaveCommand { get; set; }
+
+        public DelegateCommand SaveWithPauseCommand { get; set; }
         #endregion
+
 
         #region Constructor
         public MaterialDesignButtonsViewModel()
@@ -87,23 +98,101 @@ namespace MaterialDesignButtons.Module.ViewModels
             ClickMeCommand = new DelegateCommand(OnClickMe);
             IncrementOrClickMeCommand = new DelegateCommand(OnIncrementOrClickMe);
             DismissCommand = new DelegateCommand(ExecuteDismissCommand);
-            SaveCommand = new DelegateCommand(ExecuteSaveCommand);
+            SaveCommand = new DelegateCommand(ExecuteSave);
+            SaveWithPauseCommand = new DelegateCommand(OnSaveWithPause);
             BadgeClickMeCount = 0;
             IncrementOrClickMeCount = 0;
         }
 
-        private void ExecuteSaveCommand()
+        DispatcherTimer _timer2;
+        Stopwatch _stopwatch2;
+        private void OnSaveWithPause()
         {
-            if (!IsSaveComplete)
-            {
-                IsSaveComplete = true;
-            }
-            else
+            SaveProgress = 0.0;
+            //IsSaveComplete = false;
+            var st = Stopwatch.StartNew();
+            var totalDuration = TimeSpan.FromSeconds(5);
+            if (IsSaving == true) return;
+            if (IsSaveComplete)
             {
                 IsSaveComplete = false;
                 return;
             }
-            IsSaving = true;
+            //{
+            _timer2 = new DispatcherTimer(TimeSpan.FromMicroseconds(100), DispatcherPriority.Normal, (s, e) =>
+            {
+                var el = st.Elapsed;
+                if (el >= totalDuration)
+                {
+                    SaveProgress = 100;
+                    IsSaving = false;
+                    IsSaveComplete = true;
+                    _timer2?.Stop();
+                    st.Stop();
+                }
+                else
+                {
+                    //SaveProgress = (double)st.Elapsed.Ticks / totalDuration.Ticks*100;
+                    SaveProgress = (st.Elapsed.TotalMilliseconds / totalDuration.TotalMilliseconds) * 100;
+                    IsSaving = true;
+                }
+                //IncrementOrClickMeCount++;
+            }, Dispatcher.CurrentDispatcher);
+        }
+
+        DispatcherTimer _timer;
+        Stopwatch _stopwatch;
+        private void ExecuteSave()
+        {
+            
+
+            //SaveProgress = 0.0;
+            //IsSaveComplete = false;
+            //_stopwatch = Stopwatch.StartNew();
+
+            var totalDuration = TimeSpan.FromSeconds(5);
+            if (IsSaving == true)
+            {
+                //PauseSave();
+                _stopwatch?.Stop();   // ✅ 暂停
+                _timer?.Stop();       // UI 停止刷新
+                IsSaving = false;
+                return;
+            }
+            if (IsSaveComplete)
+            {
+                SaveProgress = 0.0;
+                IsSaveComplete = false;
+                _stopwatch = null;
+                return;
+            }
+
+            _stopwatch ??= Stopwatch.StartNew();
+            if (!_stopwatch.IsRunning)
+                _stopwatch.Start();
+            
+            
+            _timer = new DispatcherTimer(TimeSpan.FromMicroseconds(16), DispatcherPriority.Normal, (s, e) =>
+            {
+
+                var el = _stopwatch.Elapsed;
+                if (el >= totalDuration)
+                {
+                    SaveProgress = 100;
+                    IsSaving = false;
+                    IsSaveComplete = true;
+                    _timer?.Stop();
+                    _stopwatch.Stop();
+                }
+                else
+                {
+                    //SaveProgress = (double)st.Elapsed.Ticks / totalDuration.Ticks*100;
+                    SaveProgress = (_stopwatch.Elapsed.TotalMilliseconds / totalDuration.TotalMilliseconds) * 100;
+                    IsSaving = true;
+                }
+                //IncrementOrClickMeCount++;
+            }, Dispatcher.CurrentDispatcher);
+
         }
         #endregion
 
