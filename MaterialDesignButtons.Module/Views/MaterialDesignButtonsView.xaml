@@ -283,7 +283,7 @@
                 </StackPanel>
 
                 <!--Badged是一个object?类型 可以是文字也可以是图标或者其他类型-->
-                <StackPanel Grid.Row="10" Orientation="Horizontal" Margin="0,10,0,0" Tag="带有提示图标 badged">
+                <StackPanel Grid.Row="12" Orientation="Horizontal" Margin="0,10,0,0" Tag="带有提示图标 badged">
                     <materialDesign:Badged Badge="3" x:Name="badge" Margin="10">
                         <Button Content="mail"/>
                     </materialDesign:Badged>
@@ -382,6 +382,8 @@
                         <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto" />
@@ -471,9 +473,9 @@
 
                         <Button Content="{Binding SaveProgress}" Style="{StaticResource MaterialDesignOutlinedSecondaryLightButton}" Width="{StaticResource ButtonWidth}" Margin="15,10,0,15" />
                         <Button Margin="10,10,0,10" Style="{StaticResource MaterialDesignFloatingActionButton}"  Command="{Binding SaveWithPauseCommand}"
-        materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
-        materialDesign:ButtonProgressAssist.IsIndeterminate="False"
-        materialDesign:ButtonProgressAssist.Value="{Binding SaveProgress}">
+                            materialDesign:ButtonProgressAssist.IsIndicatorVisible="True" 
+                            materialDesign:ButtonProgressAssist.IsIndeterminate="False"
+                            materialDesign:ButtonProgressAssist.Value="{Binding SaveProgress}">     
                             <materialDesign:PackIcon>
                                 <materialDesign:PackIcon.Style>
                                     <Style TargetType="materialDesign:PackIcon" BasedOn="{StaticResource {x:Type materialDesign:PackIcon} }">
@@ -494,15 +496,44 @@
                                 </materialDesign:PackIcon.Style>
                             </materialDesign:PackIcon>
                         </Button>
+                        
+                        <Button Margin="15,10,0,10"  Style="{StaticResource MaterialDesignFloatingActionButton}" 
+                                materialDesign:ButtonProgressAssist.IndicatorBackground="Yellow"
+                                materialDesign:ButtonProgressAssist.IndicatorForeground="DarkCyan"
+                                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.Value="25"
+                                Background="Tomato" Foreground="LightGreen"
+                                ToolTip="带有四种颜色设置的按钮">
+                            <materialDesign:PackIcon Kind="AccessPointNetwork" />
+                        </Button>
 
+                        <Button Margin="15,10,0,10" Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                                materialDesign:ButtonProgressAssist.IsIndeterminate="False"
+                                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.Value="25"
+                                ToolTip="不同的style对ButtonProgressAssist的颜色设置也不同">
+                        </Button>
                     </StackPanel>
-                    
-                    
+
+                    <TextBlock Grid.Row="5" Text="PoppupBoxs" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Margin="0,20" />
+                    <StackPanel Grid.Row="6" Orientation="Horizontal" >
+                        <materialDesign:PopupBox Margin="10">
+                            <Grid Width="150" Height="40" Background="{DynamicResource  MaterialDesign.Brush.Primary}">
+                                <TextBlock Text="PopupBox Light" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </Grid>
+                        </materialDesign:PopupBox>
+
+                        <Button Height="50" Width="100" Content="213"  Background="{DynamicResource MaterialDesign.Brush.Primary.Dark}"/>
+                    </StackPanel>
+                        
 
 
 
 
-                    <!--<Button Margin="10,10,0,0" Style="{StaticResource MaterialDesignIconButton}">
+
+
+
+                        <!--<Button Margin="10,10,0,0" Style="{StaticResource MaterialDesignIconButton}">
                         <materialDesign:PackIcon Kind="Play" />
                     </Button>
 
