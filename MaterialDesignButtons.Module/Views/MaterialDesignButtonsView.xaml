@@ -423,9 +423,9 @@
 
                         <Button Margin="10,10,0,10" Style="{StaticResource MaterialDesignFlatMidBgButton}" Content="DesignFlatMidBgButton"  
                                 materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"   materialDesign:ButtonProgressAssist.IsIndeterminate="True"/>
-                                               
+
                     </StackPanel>
-                    
+
                     <!--TargetType="materialDesign:PackIcon"
         BasedOn="{StaticResource {x:Type materialDesign:PackIcon}}"> 正确写法-->
                     <StackPanel Grid.Row="4" Orientation="Horizontal">
@@ -475,7 +475,7 @@
                         <Button Margin="10,10,0,10" Style="{StaticResource MaterialDesignFloatingActionButton}"  Command="{Binding SaveWithPauseCommand}"
                             materialDesign:ButtonProgressAssist.IsIndicatorVisible="True" 
                             materialDesign:ButtonProgressAssist.IsIndeterminate="False"
-                            materialDesign:ButtonProgressAssist.Value="{Binding SaveProgress}">     
+                            materialDesign:ButtonProgressAssist.Value="{Binding SaveProgress}">
                             <materialDesign:PackIcon>
                                 <materialDesign:PackIcon.Style>
                                     <Style TargetType="materialDesign:PackIcon" BasedOn="{StaticResource {x:Type materialDesign:PackIcon} }">
@@ -496,7 +496,7 @@
                                 </materialDesign:PackIcon.Style>
                             </materialDesign:PackIcon>
                         </Button>
-                        
+
                         <Button Margin="15,10,0,10"  Style="{StaticResource MaterialDesignFloatingActionButton}" 
                                 materialDesign:ButtonProgressAssist.IndicatorBackground="Yellow"
                                 materialDesign:ButtonProgressAssist.IndicatorForeground="DarkCyan"
@@ -517,15 +517,54 @@
 
                     <TextBlock Grid.Row="5" Text="PoppupBoxs" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Margin="0,20" />
                     <StackPanel Grid.Row="6" Orientation="Horizontal" >
-                        <materialDesign:PopupBox Margin="10">
-                            <Grid Width="150" Height="40" Background="{DynamicResource  MaterialDesign.Brush.Primary}">
-                                <TextBlock Text="PopupBox Light" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <materialDesign:PopupBox Margin="10" StaysOpen="True">
+                            <!--Background="{DynamicResource  MaterialDesign.Brush.Primary}-->
+                            <Grid Width="300" Margin="8">
+                                <Grid.Resources>
+                                    <Style TargetType="CheckBox" BasedOn="{StaticResource MaterialDesignCheckBox}">
+                                        <Setter Property="Margin" Value="8,8,10,8" />
+                                    </Style>
+                                    <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
+                                        <Setter Property="Margin" Value="8,8,8,8" />
+                                        <Setter Property="materialDesign:HintAssist.IsFloating" Value="True" />
+                                    </Style>
+                                </Grid.Resources>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <!--TextBox is front ,CheckBox is back => first use * and second use auto-->
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition  Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Margin="10,10" Text="Options" Style="{StaticResource MaterialDesignHeadline5TextBlock}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBox Grid.Row="1" Grid.Column="0" materialDesign:HintAssist.Hint="Setting 1" />
+                                <CheckBox Grid.Row="1" Grid.Column="1" />
+                                <TextBox Grid.Row="2" Grid.Column="0" materialDesign:HintAssist.Hint="Setting 2" />
+                                <CheckBox Grid.Row="2" Grid.Column="1" />
+                                <TextBox Grid.Row="3" Grid.Column="0" materialDesign:HintAssist.Hint="Setting 3" />
+                                <CheckBox Grid.Row="3" Grid.Column="1" />
+                                <ComboBox Grid.Row="4" Grid.Column="0" Margin="8" Padding="10,0,0,0" materialDesign:TextFieldAssist.TextBoxViewMargin="10,0,0,0"  materialDesign:HintAssist.Hint="Setting 4" materialDesign:HintAssist.IsFloating="True" MaxDropDownHeight="200">
+                                    <ComboBoxItem Content="20%" />
+                                    <ComboBoxItem Content="40%" />
+                                    <ComboBoxItem Content="60%" />
+                                    <ComboBoxItem Content="80%" />
+                                    <ComboBoxItem Content="100%" />
+                                </ComboBox>
+                                <CheckBox Grid.Row="4" Grid.Column="1" />
+
+
+
+
                             </Grid>
                         </materialDesign:PopupBox>
-
-                        <Button Height="50" Width="100" Content="213"  Background="{DynamicResource MaterialDesign.Brush.Primary.Dark}"/>
+                        <!--<Button Height="50" Width="100" Content="213"  Background="{DynamicResource MaterialDesign.Brush.Primary.Dark}"/>-->
                     </StackPanel>
-                        
 
 
 
@@ -533,7 +572,8 @@
 
 
 
-                        <!--<Button Margin="10,10,0,0" Style="{StaticResource MaterialDesignIconButton}">
+
+                    <!--<Button Margin="10,10,0,0" Style="{StaticResource MaterialDesignIconButton}">
                         <materialDesign:PackIcon Kind="Play" />
                     </Button>
 
