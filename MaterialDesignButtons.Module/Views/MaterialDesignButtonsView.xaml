@@ -6,8 +6,15 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:MaterialDesignButtons.Module.Views"
+             xmlns:modlue="clr-namespace:MaterialDesignButtons.Module"
+             xmlns:converter="clr-namespace:MaterialDesignButtons.Module.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="1500" d:DesignWidth="1200" >
+    <UserControl.Resources>
+        <converter:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <!--<converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />-->
+    </UserControl.Resources>
 
     <!--
         小计
@@ -348,7 +355,7 @@
                 <StackPanel Grid.Row="14" Orientation="Horizontal" Margin="10,10,0,0">
                     <RepeatButton Background="{DynamicResource MaterialDesign.Brush.Primary.Light}" Content="Repeat-Primary-Light" Margin="0,10,0,10"/>
                     <RepeatButton Background="{DynamicResource MaterialDesign.Brush.Primary}" Content="Repeat-Primary-Light" Margin="10,10,0,10"/>
-                    <RepeatButton Background="{DynamicResource MaterialDesign.Brush.Primary.Dark}" Content="Repaat-Primary-Dark" Margin="10,10,0,10"/>
+                    <RepeatButton Background="{DynamicResource MaterialDesign.Brush.Primary.Dark}" Content="Repaat-Primary-Dark" Margin="10,10,0,10"/>  
                     <RepeatButton Background="{DynamicResource MaterialDesign.Brush.Secondary.Light}" Content="Repeat-Secondary-Light" Margin="10,10,0,10"/>
                     <RepeatButton Background="{DynamicResource MaterialDesign.Brush.Secondary}" Content="Repeat-Secondary-Light" Margin="10,10,0,10"/>
                     <RepeatButton Background="{DynamicResource MaterialDesign.Brush.Secondary.Dark}" Content="Repaat-Secondary-Dark" Margin="10,10,0,10"/>
@@ -426,6 +433,29 @@
                     <!--TargetType="materialDesign:PackIcon"
         BasedOn="{StaticResource {x:Type materialDesign:PackIcon}}">-->
                     <StackPanel Grid.Row="4" Orientation="Horizontal">
+                        <StackPanel.Resources>
+                            <Style TargetType="RadioButton">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="RadioButton">
+                                            <StackPanel Orientation="Horizontal" IsHitTestVisible="True" Background="Transparent">
+                                                <Border Width="14" Height="14" BorderBrush="Gray" BorderThickness="1" Background="{TemplateBinding Background}">
+                                                    <Grid Background="Green" Visibility="{TemplateBinding IsChecked,Converter={StaticResource BoolToVisibilityConverter}}">
+                                                        <materialDesign:PackIcon Kind="Check" Width="10" Height="10" Foreground="{StaticResource PrimaryHueMidBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                    </Grid>
+                                                </Border>
+                                                <ContentPresenter Margin="6,0,0,0" />
+                                            </StackPanel>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsEnabled" Value="False">
+                                                    <Setter Property="Opacity" Value="0.2" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </StackPanel.Resources>
                         <Button Margin="10,10,0,10" Style="{StaticResource MaterialDesignFloatingActionButton}" Command="{Binding SaveCommand}"
                                 
                                 materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
@@ -475,6 +505,10 @@
                                 </materialDesign:PackIcon.Style>
                             </materialDesign:PackIcon>
                         </Button>
+
+                        <RadioButton x:Name="A3" IsChecked="{Binding SelectedOption,Converter={StaticResource EnumToBooleanConverter},ConverterParameter={x:Static modlue:OptionType.A3}}"  GroupName="InterRadio" Content="A3" Margin="15,15,5,0" />
+                        <RadioButton x:Name="A4" IsChecked="{Binding SelectedOption,Converter={StaticResource EnumToBooleanConverter},ConverterParameter={x:Static modlue:OptionType.A4}}" GroupName="InterRadio" Content="A4" Margin="15,15,5,0" />
+                        <RadioButton x:Name="A5" IsChecked="{Binding SelectedOption,Converter={StaticResource EnumToBooleanConverter},ConverterParameter={x:Static modlue:OptionType.A5}}" GroupName="InterRadio" Content="A5" Margin="15,15,5,0" />
                     </StackPanel>
                     
                     

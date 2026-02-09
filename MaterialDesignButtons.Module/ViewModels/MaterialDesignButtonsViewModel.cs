@@ -67,7 +67,12 @@ namespace MaterialDesignButtons.Module.ViewModels
             set => SetProperty(ref _isSaving, value);
         }
 
-
+        private OptionType _selectedOption = OptionType.A4;
+        public OptionType SelectedOption
+        {
+            get => _selectedOption;
+            set => SetProperty(ref _selectedOption, value);
+        }
 
         #endregion
 
@@ -90,6 +95,7 @@ namespace MaterialDesignButtons.Module.ViewModels
             SaveCommand = new DelegateCommand(ExecuteSaveCommand);
             BadgeClickMeCount = 0;
             IncrementOrClickMeCount = 0;
+            SelectedOption = OptionType.A4;
         }
 
         private void ExecuteSaveCommand()
