@@ -67,14 +67,14 @@ namespace MaterialDesignButtons.Module.ViewModels
             set => SetProperty(ref _isSaving, value);
         }
 
-<<<<<<< HEAD
+
         private OptionType _selectedOption = OptionType.A4;
         public OptionType SelectedOption
         {
             get => _selectedOption;
             set => SetProperty(ref _selectedOption, value);
         }
-=======
+
         private double _saveProgress;
         public double SaveProgress
         {
@@ -83,8 +83,6 @@ namespace MaterialDesignButtons.Module.ViewModels
         }
 
 
-
->>>>>>> 0050d9f0ca4793668246d0dae64abaaa2fe8306b
 
         #endregion
 
@@ -99,7 +97,6 @@ namespace MaterialDesignButtons.Module.ViewModels
 
         public DelegateCommand SaveWithPauseCommand { get; set; }
         #endregion
-
 
         #region Constructor
         public MaterialDesignButtonsViewModel()

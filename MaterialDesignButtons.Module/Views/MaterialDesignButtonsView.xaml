@@ -355,7 +355,7 @@
                 <StackPanel Grid.Row="14" Orientation="Horizontal" Margin="10,10,0,0">
                     <RepeatButton Background="{DynamicResource MaterialDesign.Brush.Primary.Light}" Content="Repeat-Primary-Light" Margin="0,10,0,10"/>
                     <RepeatButton Background="{DynamicResource MaterialDesign.Brush.Primary}" Content="Repeat-Primary-Light" Margin="10,10,0,10"/>
-                    <RepeatButton Background="{DynamicResource MaterialDesign.Brush.Primary.Dark}" Content="Repaat-Primary-Dark" Margin="10,10,0,10"/>  
+                    <RepeatButton Background="{DynamicResource MaterialDesign.Brush.Primary.Dark}" Content="Repaat-Primary-Dark" Margin="10,10,0,10"/>
                     <RepeatButton Background="{DynamicResource MaterialDesign.Brush.Secondary.Light}" Content="Repeat-Secondary-Light" Margin="10,10,0,10"/>
                     <RepeatButton Background="{DynamicResource MaterialDesign.Brush.Secondary}" Content="Repeat-Secondary-Light" Margin="10,10,0,10"/>
                     <RepeatButton Background="{DynamicResource MaterialDesign.Brush.Secondary.Dark}" Content="Repaat-Secondary-Dark" Margin="10,10,0,10"/>
@@ -436,7 +436,6 @@
                     <!--TargetType="materialDesign:PackIcon"
         BasedOn="{StaticResource {x:Type materialDesign:PackIcon}}"> 正确写法-->
                     <StackPanel Grid.Row="4" Orientation="Horizontal">
-<<<<<<< HEAD
                         <StackPanel.Resources>
                             <Style TargetType="RadioButton">
                                 <Setter Property="Template">
@@ -460,11 +459,10 @@
                                 </Setter>
                             </Style>
                         </StackPanel.Resources>
-                        <Button Margin="10,10,0,10" Style="{StaticResource MaterialDesignFloatingActionButton}" Command="{Binding SaveCommand}"
-                                
-=======
+                        <Button Margin="10,10,0,10" Style="{StaticResource MaterialDesignFloatingActionButton}" Command="{Binding SaveCommand}" />
+
+
                         <Button Margin="10,10,0,10" Style="{StaticResource MaterialDesignFloatingActionButton}"  Command="{Binding SaveCommand}"
->>>>>>> 0050d9f0ca4793668246d0dae64abaaa2fe8306b
                                 materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
                                 materialDesign:ButtonProgressAssist.IsIndeterminate="False"
                                 materialDesign:ButtonProgressAssist.Value="{Binding SaveProgress}">
@@ -506,11 +504,11 @@
                             </materialDesign:PackIcon>
                         </Button>
 
-<<<<<<< HEAD
+
                         <RadioButton x:Name="A3" IsChecked="{Binding SelectedOption,Converter={StaticResource EnumToBooleanConverter},ConverterParameter={x:Static modlue:OptionType.A3}}"  GroupName="InterRadio" Content="A3" Margin="15,15,5,0" />
                         <RadioButton x:Name="A4" IsChecked="{Binding SelectedOption,Converter={StaticResource EnumToBooleanConverter},ConverterParameter={x:Static modlue:OptionType.A4}}" GroupName="InterRadio" Content="A4" Margin="15,15,5,0" />
                         <RadioButton x:Name="A5" IsChecked="{Binding SelectedOption,Converter={StaticResource EnumToBooleanConverter},ConverterParameter={x:Static modlue:OptionType.A5}}" GroupName="InterRadio" Content="A5" Margin="15,15,5,0" />
-=======
+
                         <Button Content="{Binding SaveProgress}" Style="{StaticResource MaterialDesignOutlinedSecondaryLightButton}" Width="{StaticResource ButtonWidth}" Margin="15,10,0,15" />
                         <Button Margin="10,10,0,10" Style="{StaticResource MaterialDesignFloatingActionButton}"  Command="{Binding SaveWithPauseCommand}"
                             materialDesign:ButtonProgressAssist.IsIndicatorVisible="True" 
@@ -536,7 +534,10 @@
                                 </materialDesign:PackIcon.Style>
                             </materialDesign:PackIcon>
                         </Button>
-
+                        <!--指示器的颜色可以通过设置
+                            materialDesign:ButtonProgressAssist.IndicatorBackground
+                            materialDesign:ButtonProgressAssist.IndicatorForeground来进行自定义设置，默认情况下，指示器的颜色会根据按钮的style进行自动适配。
+                        -->
                         <Button Margin="15,10,0,10"  Style="{StaticResource MaterialDesignFloatingActionButton}" 
                                 materialDesign:ButtonProgressAssist.IndicatorBackground="Yellow"
                                 materialDesign:ButtonProgressAssist.IndicatorForeground="DarkCyan"
@@ -547,13 +548,13 @@
                             <materialDesign:PackIcon Kind="AccessPointNetwork" />
                         </Button>
 
+                        <!--不同的style对ButtonProgressAssist的颜色设置也不同 例如：MaterialDesignFloatingActionMiniDarkButton的指示器颜色会更亮一些以适应暗色背景-->
                         <Button Margin="15,10,0,10" Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
                                 materialDesign:ButtonProgressAssist.IsIndeterminate="False"
                                 materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
                                 materialDesign:ButtonProgressAssist.Value="25"
                                 ToolTip="不同的style对ButtonProgressAssist的颜色设置也不同">
                         </Button>
->>>>>>> 0050d9f0ca4793668246d0dae64abaaa2fe8306b
                     </StackPanel>
 
                     <TextBlock Grid.Row="5" Text="PoppupBoxs" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Margin="0,20" />
@@ -583,7 +584,7 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition  Width="auto"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Row="0" Grid.Column="0" Margin="10,10" Text="Options" Style="{StaticResource MaterialDesignHeadline5TextBlock}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Grid.Row="0" Grid.Column="0" Margin="10,10" Text="Options" Style="{StaticResource MaterialDesignHeadline5TextBlock}" VerticalAlignment="Center" HorizontalAlignment="Right" />
                                 <TextBox Grid.Row="1" Grid.Column="0" materialDesign:HintAssist.Hint="Setting 1" />
                                 <CheckBox Grid.Row="1" Grid.Column="1" />
                                 <TextBox Grid.Row="2" Grid.Column="0" materialDesign:HintAssist.Hint="Setting 2" />
@@ -598,12 +599,13 @@
                                     <ComboBoxItem Content="100%" />
                                 </ComboBox>
                                 <CheckBox Grid.Row="4" Grid.Column="1" />
-
-
-
-
+                                <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" Orientation="Horizontal" FlowDirection="RightToLeft">
+                                    <Button Command="{x:Static materialDesign:PopupBox.ClosePopupCommand}" Content="_Cancel" Foreground="Red" Style="{StaticResource MaterialDesignFlatButton}" Width="80" Height="40" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                                    <Button Command="{x:Static materialDesign:PopupBox.ClosePopupCommand}" Content="_Save" Style="{StaticResource MaterialDesignFlatButton}" Width="80" Height="40" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                                </StackPanel>
                             </Grid>
                         </materialDesign:PopupBox>
+                        
                         <!--<Button Height="50" Width="100" Content="213"  Background="{DynamicResource MaterialDesign.Brush.Primary.Dark}"/>-->
                     </StackPanel>
 
