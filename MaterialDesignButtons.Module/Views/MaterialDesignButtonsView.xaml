@@ -557,18 +557,15 @@
                                     <ComboBoxItem Content="100%" />
                                 </ComboBox>
                                 <CheckBox Grid.Row="4" Grid.Column="1" />
-
-
-
-
                             </Grid>
                         </materialDesign:PopupBox>
+                        <Button Style="{StaticResource MaterialDesignFloatingActionSecondaryDarkButton}">
+                            <materialDesign:PopupBox>
+                                
+                            </materialDesign:PopupBox>
+                        </Button>
                         <!--<Button Height="50" Width="100" Content="213"  Background="{DynamicResource MaterialDesign.Brush.Primary.Dark}"/>-->
                     </StackPanel>
-
-
-
-
 
 
 
