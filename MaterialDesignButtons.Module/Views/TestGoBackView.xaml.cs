@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,18 +16,13 @@ using System.Windows.Shapes;
 namespace MaterialDesignButtons.Module.Views
 {
     /// <summary>
-    /// MaterialDesignButtonsView.xaml 的交互逻辑
+    /// TestGoBackView.xaml 的交互逻辑
     /// </summary>
-    public partial class MaterialDesignButtonsView : UserControl
+    public partial class TestGoBackView : UserControl
     {
-        public MaterialDesignButtonsView()
+        public TestGoBackView()
         {
             InitializeComponent();
-            
-            //this.btn_repeat.Background = MaterialDesignColors.SecondaryColor.LightBlue;
-            uint x = 20;
-            string c = Convert.ToString(x,16);
-            sbyte y = (sbyte)x;
         }
     }
 }

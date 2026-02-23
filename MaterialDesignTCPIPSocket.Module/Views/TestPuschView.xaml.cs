@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,21 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MaterialDesignButtons.Module.Views
+namespace MaterialDesignTCPIPSocket.Module.Views
 {
     /// <summary>
-    /// MaterialDesignButtonsView.xaml 的交互逻辑
+    /// TestPuschView.xaml 的交互逻辑
     /// </summary>
-    public partial class MaterialDesignButtonsView : UserControl
+    public partial class TestPuschView : UserControl
     {
-        public MaterialDesignButtonsView()
+        public TestPuschView()
         {
             InitializeComponent();
-            
-            //this.btn_repeat.Background = MaterialDesignColors.SecondaryColor.LightBlue;
-            uint x = 20;
-            string c = Convert.ToString(x,16);
-            sbyte y = (sbyte)x;
         }
     }
 }

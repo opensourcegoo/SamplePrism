@@ -56,7 +56,7 @@ namespace SamplePrism.ViewModels
                 new DomainMenuItem(0,"HomeView","HomeView",PackIconKind.Home,PackIconKind.HomeOff),
                 new DomainMenuItem(1,"ButtonsView","MaterialDesignButtonsView",PackIconKind.AboutCircle,PackIconKind.ABCOff),
                 new DomainMenuItem(2,"CardsView","ButtonsView",PackIconKind.Cardholder,PackIconKind.IdCardOutline),
-                new DomainMenuItem(3,"CardsView","TogglesView",PackIconKind.Cardholder,PackIconKind.IdCardOutline),
+                new DomainMenuItem(3,"SocketView","MaterialDesignTCPIPSocketView",PackIconKind.PlugSocket,PackIconKind.PlugSocket),
                 new DomainMenuItem(4,"CardsView","FiledView",PackIconKind.Cardholder,PackIconKind.IdCardOutline),
                 new DomainMenuItem(5,"CardsView","TouchView",PackIconKind.Cardholder,PackIconKind.IdCardOutline),
                 new DomainMenuItem(6,"CardsView","CardsView",PackIconKind.Cardholder,PackIconKind.IdCardOutline),
@@ -113,8 +113,9 @@ namespace SamplePrism.ViewModels
         private void NavigateService(string navPath)
         {
             var param = new NavigationParameters();
+            //param.Add("name", "张三");
             _regionManager.RequestNavigate("MainViewRegion", navPath, param);
-
+ 
             //特殊处理
             //switch (navPath)
             //{

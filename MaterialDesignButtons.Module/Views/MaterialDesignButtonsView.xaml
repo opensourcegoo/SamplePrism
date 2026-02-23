@@ -6,8 +6,16 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:MaterialDesignButtons.Module.Views"
+             xmlns:modlue="clr-namespace:MaterialDesignButtons.Module"
+             xmlns:converter="clr-namespace:MaterialDesignButtons.Module.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="1500" d:DesignWidth="1200" >
+    <UserControl.Resources>
+        <converter:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <!--<materialDesign:NullableToVisibilityConverter-->
+        <!--<converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />-->
+    </UserControl.Resources>
 
     <!--
         小计
@@ -129,8 +137,6 @@
                         <materialDesign:PackIcon Kind="Alarm" Width="{StaticResource iconSize}" />
                     </Button>
                 </StackPanel>
-
-
 
                 <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,10,0,0">
                     <Button Style="{StaticResource MaterialDesignPaperLightButton}" Margin="10,0" >
@@ -429,6 +435,32 @@
                     <!--TargetType="materialDesign:PackIcon"
         BasedOn="{StaticResource {x:Type materialDesign:PackIcon}}"> 正确写法-->
                     <StackPanel Grid.Row="4" Orientation="Horizontal">
+                        <StackPanel.Resources>
+                            <Style TargetType="RadioButton">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="RadioButton">
+                                            <StackPanel Orientation="Horizontal" IsHitTestVisible="True" Background="Transparent">
+                                                <Border Width="14" Height="14" BorderBrush="Gray" BorderThickness="1" Background="{TemplateBinding Background}">
+                                                    <Grid Background="Green" Visibility="{TemplateBinding IsChecked,Converter={StaticResource BoolToVisibilityConverter}}">
+                                                        <materialDesign:PackIcon Kind="Check" Width="10" Height="10" Foreground="{StaticResource PrimaryHueMidBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                    </Grid>
+                                                </Border>
+                                                <ContentPresenter Margin="6,0,0,0" />
+                                            </StackPanel>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsEnabled" Value="False">
+                                                    <Setter Property="Opacity" Value="0.2" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </StackPanel.Resources>
+                        <Button Margin="10,10,0,10" Style="{StaticResource MaterialDesignFloatingActionButton}" Command="{Binding SaveCommand}" />
+
+
                         <Button Margin="10,10,0,10" Style="{StaticResource MaterialDesignFloatingActionButton}"  Command="{Binding SaveCommand}"
                                 materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
                                 materialDesign:ButtonProgressAssist.IsIndeterminate="False"
@@ -471,6 +503,11 @@
                             </materialDesign:PackIcon>
                         </Button>
 
+
+                        <!--<RadioButton x:Name="A3" IsChecked="{Binding SelectedOption,Converter={StaticResource EnumToBooleanConverter},ConverterParameter={x:Static modlue:OptionType.A3}}"  GroupName="InterRadio" Content="A3" Margin="15,15,5,0" />
+                        <RadioButton x:Name="A4" IsChecked="{Binding SelectedOption,Converter={StaticResource EnumToBooleanConverter},ConverterParameter={x:Static modlue:OptionType.A4}}" GroupName="InterRadio" Content="A4" Margin="15,15,5,0" />
+                        <RadioButton x:Name="A5" IsChecked="{Binding SelectedOption,Converter={StaticResource EnumToBooleanConverter},ConverterParameter={x:Static modlue:OptionType.A5}}" GroupName="InterRadio" Content="A5" Margin="15,15,5,0" />-->
+
                         <Button Content="{Binding SaveProgress}" Style="{StaticResource MaterialDesignOutlinedSecondaryLightButton}" Width="{StaticResource ButtonWidth}" Margin="15,10,0,15" />
                         <Button Margin="10,10,0,10" Style="{StaticResource MaterialDesignFloatingActionButton}"  Command="{Binding SaveWithPauseCommand}"
                             materialDesign:ButtonProgressAssist.IsIndicatorVisible="True" 
@@ -496,7 +533,10 @@
                                 </materialDesign:PackIcon.Style>
                             </materialDesign:PackIcon>
                         </Button>
-
+                        <!--指示器的颜色可以通过设置
+                            materialDesign:ButtonProgressAssist.IndicatorBackground
+                            materialDesign:ButtonProgressAssist.IndicatorForeground来进行自定义设置，默认情况下，指示器的颜色会根据按钮的style进行自动适配。
+                        -->
                         <Button Margin="15,10,0,10"  Style="{StaticResource MaterialDesignFloatingActionButton}" 
                                 materialDesign:ButtonProgressAssist.IndicatorBackground="Yellow"
                                 materialDesign:ButtonProgressAssist.IndicatorForeground="DarkCyan"
@@ -507,6 +547,7 @@
                             <materialDesign:PackIcon Kind="AccessPointNetwork" />
                         </Button>
 
+                        <!--不同的style对ButtonProgressAssist的颜色设置也不同 例如：MaterialDesignFloatingActionMiniDarkButton的指示器颜色会更亮一些以适应暗色背景-->
                         <Button Margin="15,10,0,10" Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
                                 materialDesign:ButtonProgressAssist.IsIndeterminate="False"
                                 materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
@@ -536,13 +577,14 @@
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <!--TextBox is front ,CheckBox is back => first use * and second use auto-->
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition  Width="auto"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Row="0" Grid.Column="0" Margin="10,10" Text="Options" Style="{StaticResource MaterialDesignHeadline5TextBlock}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Grid.Row="0" Grid.Column="0" Margin="10,10" Text="Options" Style="{StaticResource MaterialDesignHeadline5TextBlock}" VerticalAlignment="Center" HorizontalAlignment="Right" />
                                 <TextBox Grid.Row="1" Grid.Column="0" materialDesign:HintAssist.Hint="Setting 1" />
                                 <CheckBox Grid.Row="1" Grid.Column="1" />
                                 <TextBox Grid.Row="2" Grid.Column="0" materialDesign:HintAssist.Hint="Setting 2" />
@@ -557,30 +599,48 @@
                                     <ComboBoxItem Content="100%" />
                                 </ComboBox>
                                 <CheckBox Grid.Row="4" Grid.Column="1" />
+                                <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" Orientation="Horizontal" FlowDirection="RightToLeft">
+                                    <Button Command="{x:Static materialDesign:PopupBox.ClosePopupCommand}" Content="_Cancel" Foreground="Red" Style="{StaticResource MaterialDesignFlatButton}" Width="80" Height="40" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                                    <Button Command="{x:Static materialDesign:PopupBox.ClosePopupCommand}" Content="_Save" Style="{StaticResource MaterialDesignFlatButton}" Width="80" Height="40" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                                </StackPanel>
                             </Grid>
                         </materialDesign:PopupBox>
-                        <Button Style="{StaticResource MaterialDesignFloatingActionSecondaryDarkButton}">
-                            <materialDesign:PopupBox>
-                                
-                            </materialDesign:PopupBox>
-                        </Button>
                         <!--<Button Height="50" Width="100" Content="213"  Background="{DynamicResource MaterialDesign.Brush.Primary.Dark}"/>-->
+
+
+                        <!--<materialDesign:PopupBox StaysOpen="True" PlacementMode="BottomAndAlignCentres" ToggleCheckedContentCommand="{Binding FloatingActionCommand}" ToggleCheckedContentCommandParameter="ac" >
+                            <materialDesign:PopupBox.ToggleCheckedContent>
+                                <materialDesign:PackIcon Kind="Pencil" Width="24" Height="24"  />
+                            </materialDesign:PopupBox.ToggleCheckedContent>
+                        </materialDesign:PopupBox>-->
+
+                        <!--materialDesign:BehaviorsAssist.Behaviors="SmartHintBehavior"-->
+                        
+                        <materialDesign:PopupBox Style="{StaticResource MaterialDesignMultiFloatingActionSecondaryPopupBox}"
+                                                 ToggleCheckedContentCommand="{Binding FloatingActionCommand}" ToggleCheckedContentCommandParameter="A1">
+                            <materialDesign:PopupBox.ToggleCheckedContent>
+                                <materialDesign:PackIcon Kind="Pencil" Width="24" Height="24" />
+                            </materialDesign:PopupBox.ToggleCheckedContent>
+                            <StackPanel>
+                                <Button Content="1" ToolTip="One" />
+                                <Button Content="2" ToolTip="Two" />
+                                <Button Content="3" ToolTip="Three" />
+                            </StackPanel>
+                        </materialDesign:PopupBox>
+
+                        <materialDesign:PopupBox Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}" Margin="10,0,0,0">
+                            <materialDesign:PopupBox.ToggleCheckedContent>
+                                <materialDesign:PackIcon Kind="Pencil" Width="24" Height="24" />
+                            </materialDesign:PopupBox.ToggleCheckedContent>
+                            <StackPanel>
+                                <Button Content="A" ToolTip="A" />
+                                <Button Content="B" ToolTip="B" />
+                                <Button Content="C" ToolTip="C" />
+                            </StackPanel>
+                        </materialDesign:PopupBox>
+                        
+                        
                     </StackPanel>
-
-
-
-
-                    <!--<Button Margin="10,10,0,0" Style="{StaticResource MaterialDesignIconButton}">
-                        <materialDesign:PackIcon Kind="Play" />
-                    </Button>
-
-                    <Button Margin="10,10,0,0" Style="{StaticResource MaterialDesignIconForegroundButton}" ToolTip="MaterialDesignIconForegroundButton">
-                        <materialDesign:PackIcon Kind="Play" />
-                    </Button>
-
-                    <Button Margin="10,10,0,0" Background="{DynamicResource MaterialDesign.Brush.TextBox.FilledBackground}" Style="{StaticResource MaterialDesignIconButton}" ToolTip="MaterialDesign.Brush.TextBox.FilledBackground">
-                        <materialDesign:PackIcon Kind="Play" />
-                    </Button>-->
                 </Grid>
             </Grid>
         </ScrollViewer>

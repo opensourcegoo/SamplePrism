@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MaterialDesignButtons.Module\MaterialDesignButtons.Module.csproj" />
+    <ProjectReference Include="..\MaterialDesignTCPIPSocket.Module\MaterialDesignTCPIPSocket.Module.csproj" />
     <ProjectReference Include="..\ModuleA\ModuleA.csproj" />
     <ProjectReference Include="..\ModuleB\ModuleB.csproj" />
     <ProjectReference Include="..\ModuleSubA1\ModuleSubA1.csproj" />

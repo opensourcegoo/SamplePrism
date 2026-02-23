@@ -67,13 +67,20 @@ namespace MaterialDesignButtons.Module.ViewModels
             set => SetProperty(ref _isSaving, value);
         }
 
+
+        private OptionType _selectedOption = OptionType.A4;
+        public OptionType SelectedOption
+        {
+            get => _selectedOption;
+            set => SetProperty(ref _selectedOption, value);
+        }
+
         private double _saveProgress;
         public double SaveProgress
         {
             get => _saveProgress;
             set => SetProperty(ref _saveProgress, value);
         }
-
 
 
 
@@ -89,8 +96,9 @@ namespace MaterialDesignButtons.Module.ViewModels
         public DelegateCommand SaveCommand { get; set; }
 
         public DelegateCommand SaveWithPauseCommand { get; set; }
-        #endregion
 
+        public DelegateCommand FloatingActionCommand { get; set; }
+        #endregion
 
         #region Constructor
         public MaterialDesignButtonsViewModel()
@@ -102,6 +110,7 @@ namespace MaterialDesignButtons.Module.ViewModels
             SaveWithPauseCommand = new DelegateCommand(OnSaveWithPause);
             BadgeClickMeCount = 0;
             IncrementOrClickMeCount = 0;
+            SelectedOption = OptionType.A4;
         }
 
         DispatcherTimer _timer2;
