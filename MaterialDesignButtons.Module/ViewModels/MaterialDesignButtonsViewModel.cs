@@ -209,7 +209,6 @@ namespace MaterialDesignButtons.Module.ViewModels
         private void OnClickMe()
         {
             BadgeClickMeCount++;
-
         }
 
         private void OnIncrementOrClickMe()

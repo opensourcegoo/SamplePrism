@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:local="clr-namespace:MaterialDesignTCPIPSocket.Module.Views"
              mc:Ignorable="d" 
@@ -21,7 +22,7 @@
                 <DataTrigger Binding="{Binding Tag, RelativeSource={RelativeSource Self}}" 
                      Value="True">
                     <Setter Property="Foreground" 
-                    Value="{DynamicResource PrimaryHueMidBrush}"/>
+                    Value="Red"/>
                     <Setter Property="FontWeight" Value="SemiBold"/>
                 </DataTrigger>
 
@@ -29,27 +30,92 @@
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background">
                         <Setter.Value>
-                            <SolidColorBrush Color="{DynamicResource Primary}" Opacity="0.08"/>
+                            <SolidColorBrush Color="Blue" Opacity="0.08"/>
                         </Setter.Value>
                     </Setter>
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <materialDesign:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!--顶部导航区域-->
+
+        <!--导航按钮-->
+        <ItemsControl Grid.Row="0" ItemsSource="{Binding NavigationItems}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="3" />
+                        </Grid.RowDefinitions>
+                        <!-- 导航按钮 -->
+                        <Button Grid.Row="0" Content="{Binding Title}" Background="Transparent" Foreground="{DynamicResource MaterialDesignBody}"
+                                Height="48" Margin="24,0" BorderThickness="0" 
+                                Command="{Binding DataContext.NavigateCommand,RelativeSource={RelativeSource AncestorType=ItemsControl}}" 
+                                CommandParameter="{Binding .}"/>
+                        <!--底部指示器-->
+                        <Border Grid.Row="1" Height="3" x:Name="Indicator" Background="Blue" 
+                                Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                        <!-- 导航按钮 -->
+                        <!--
+                        <Button Grid.Row="0"
+                                Style="{StaticResource TabNavigationButtonStyle}"
+                                Content="{Binding Title}"
+                                Command="{Binding DataContext.NavigateCommand, 
+                                        RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                CommandParameter="{Binding}"/>
+
+                        -->
+                        <!-- 底部指示器 (每个按钮自己的) -->
+                        <!--
+                        <Border Grid.Row="1"
+                                Height="2"
+                                Background="Blue"
+                                Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}"/>-->
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <ContentControl Grid.Row="1" prism:RegionManager.RegionName="SubContentRegion"/>
+
+
+
+
+
+
+
+
+
+        <!--<Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        -->
         <!-- 顶部导航区域 -->
+        <!--
         <Grid Grid.Row="0" Background="{DynamicResource MaterialDesignPaper}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="2"/>
             </Grid.RowDefinitions>
 
-            <!-- 导航按钮 -->
+            -->
+        <!-- 导航按钮 -->
+        <!--
             <ItemsControl Grid.Row="0" ItemsSource="{Binding NavigationItems}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -63,25 +129,30 @@
                             Content="{Binding Title}"
                             Command="{Binding DataContext.NavigateCommand, 
                                     RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                            CommandParameter="{Binding ViewName}"
+                            CommandParameter="{Binding .}"
                             Tag="{Binding IsSelected}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
-            <!-- 底部指示器轨道 -->
+            -->
+        <!-- 底部指示器轨道 -->
+        <!--
             <Grid Grid.Row="1" Background="#E0E0E0">
                 <Border x:Name="Indicator" 
-                    Height="2" 
-                    Background="{DynamicResource PrimaryHueMidBrush}"
+                    Height="10"
+                    Width="20"
+                    Background="Pink"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"/>
             </Grid>
         </Grid>
 
+        -->
         <!-- 内容区域 (Prism Region) -->
+        <!--
         <ContentControl Grid.Row="1" 
-                    prism:RegionManager.RegionName="SubContentRegion"/>
+                    prism:RegionManager.RegionName="SubContentRegion"/>-->
     </Grid>
     <!--<Grid>
         <Grid.RowDefinitions>

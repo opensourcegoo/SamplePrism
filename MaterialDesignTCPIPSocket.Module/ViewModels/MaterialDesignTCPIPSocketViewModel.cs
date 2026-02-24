@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static MaterialDesignThemes.Wpf.Theme.ToolBar;
 
 namespace MaterialDesignTCPIPSocket.Module.ViewModels
 {
@@ -20,12 +21,12 @@ namespace MaterialDesignTCPIPSocket.Module.ViewModels
         #region Properties
         public int SelectedCustomerId { get; set; }
 
-        private ObservableCollection<NavigationItem>  _navigationItems;
+        private ObservableCollection<NavigationItem> _navigationItems;
 
         public ObservableCollection<NavigationItem> NavigationItems
         {
             get { return _navigationItems; }
-            set {SetProperty(ref _navigationItems , value)  ; }
+            set { SetProperty(ref _navigationItems, value); }
         }
 
         #endregion
@@ -33,11 +34,11 @@ namespace MaterialDesignTCPIPSocket.Module.ViewModels
         #region Commands
         public DelegateCommand NaviDetailCommand { get; set; }
 
-        public DelegateCommand<string> NavigateCommand { get; set; }
+        public DelegateCommand<NavigationItem> NavigateCommand { get; set; }
         #endregion
 
         #region Constructor
-        public MaterialDesignTCPIPSocketViewModel(IRegionManager regionManager,IRegionNavigationJournal regionNavigationJournal)
+        public MaterialDesignTCPIPSocketViewModel(IRegionManager regionManager, IRegionNavigationJournal regionNavigationJournal)
         {
             _regionManager = regionManager;
             _navigationJournal = regionNavigationJournal;
@@ -47,12 +48,17 @@ namespace MaterialDesignTCPIPSocket.Module.ViewModels
                 //导航到DetailView，并且传递参数
                 var parameters = new NavigationParameters();
                 parameters.Add("SelectedId", 33);
-                _regionManager.RequestNavigate("MainViewRegion", "TestGoBackView",parameters);
+                _regionManager.RequestNavigate("MainViewRegion", "TestGoBackView", parameters);
             });
 
-            NavigateCommand = new DelegateCommand<string>((navigatePath) =>
+            NavigateCommand = new DelegateCommand<NavigationItem>((item) =>
             {
-                _regionManager.RequestNavigate("SubContentRegion", navigatePath);
+                foreach (var navItem in NavigationItems)
+                    navItem.IsSelected = false;
+
+                item.IsSelected = true;
+                _regionManager.RequestNavigate("SubContentRegion", item.ViewName);
+
             });
             NavigationItems = new ObservableCollection<NavigationItem>()
             {
