@@ -63,28 +63,51 @@
                         <Button Grid.Row="0" Content="{Binding Title}" Background="Transparent" Foreground="{DynamicResource MaterialDesignBody}"
                                 Height="48" Margin="24,0" BorderThickness="0" 
                                 Command="{Binding DataContext.NavigateCommand,RelativeSource={RelativeSource AncestorType=ItemsControl}}" 
-                                CommandParameter="{Binding .}"/>
+                                CommandParameter="{Binding .}">
+                        </Button>
                         <!--底部指示器-->
-                        <Border Grid.Row="1" Height="3" x:Name="Indicator" Background="Blue" 
-                                Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <Border Grid.Row="1" Height="3" x:Name="Indicator" CornerRadius="1,1,0,0" RenderTransformOrigin="0.5,0.5" Background="#FFD6ADAD">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="IndicatorScale" ScaleX="0"/>
+                            </Border.RenderTransform>
+                        </Border>
 
-                        <!-- 导航按钮 -->
-                        <!--
-                        <Button Grid.Row="0"
-                                Style="{StaticResource TabNavigationButtonStyle}"
-                                Content="{Binding Title}"
-                                Command="{Binding DataContext.NavigateCommand, 
-                                        RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                CommandParameter="{Binding}"/>
-
-                        -->
-                        <!-- 底部指示器 (每个按钮自己的) -->
-                        <!--
-                        <Border Grid.Row="1"
-                                Height="2"
-                                Background="Blue"
-                                Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}"/>-->
                     </Grid>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                            <!-- 选中：展开动画 -->
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="IndicatorScale"
+                                               Storyboard.TargetProperty="ScaleX"
+                                               To="1"
+                                               Duration="0:0:0.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+
+                            <!-- 取消选中：收缩动画 -->
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="IndicatorScale"
+                                               Storyboard.TargetProperty="ScaleX"
+                                               To="0"
+                                               Duration="0:0:0.2">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseIn"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

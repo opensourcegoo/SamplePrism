@@ -390,6 +390,11 @@
                         <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto" />
@@ -638,8 +643,13 @@
                                 <Button Content="C" ToolTip="C" />
                             </StackPanel>
                         </materialDesign:PopupBox>
-                        
-                        
+                    </StackPanel>
+                    <TextBlock Grid.Row="7" Text="Split Buttons" />
+                    <StackPanel Grid.Row="8" Orientation="Horizontal" >
+                        <materialDesign:SplitButton HorizontalAlignment="Left" Content="123" Margin="10,10,0,0" ButtonStyle="{StaticResource MaterialDesignFlatSecondaryButton}">
+                            
+                        </materialDesign:SplitButton>
+                        <!--<Button Style="{StaticResource MaterialDesignFloatingActionMiniSecondaryLightButton}" Content="123" HorizontalAlignment="Left" />-->
                     </StackPanel>
                 </Grid>
             </Grid>
