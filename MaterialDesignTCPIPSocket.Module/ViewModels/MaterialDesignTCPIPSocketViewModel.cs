@@ -1,4 +1,5 @@
-﻿using MaterialDesignTCPIPSocket.Module.Models;
+﻿using DryIoc;
+using MaterialDesignTCPIPSocket.Module.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -48,7 +49,7 @@ namespace MaterialDesignTCPIPSocket.Module.ViewModels
                 //导航到DetailView，并且传递参数
                 var parameters = new NavigationParameters();
                 parameters.Add("SelectedId", 33);
-                _regionManager.RequestNavigate("MainViewRegion", "TestGoBackView", parameters);
+                _regionManager.RequestNavigate("MainViewRegion", "SocketBaseView", parameters);
             });
 
             NavigateCommand = new DelegateCommand<NavigationItem>((item) =>
@@ -62,7 +63,7 @@ namespace MaterialDesignTCPIPSocket.Module.ViewModels
             });
             NavigationItems = new ObservableCollection<NavigationItem>()
             {
-                new NavigationItem("CustomerInfo","TestGoBackView",true),
+                new NavigationItem("SocketBase","SocketBaseView",true),
                 new NavigationItem("OrderInfo","TestPuschView",false),
                 new NavigationItem("PayInfo","TestPdschView",false),
             };
@@ -91,6 +92,7 @@ namespace MaterialDesignTCPIPSocket.Module.ViewModels
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
+            _regionManager.RequestNavigate("SubContentRegion", "SocketBaseView");
             _navigationJournal = navigationContext.NavigationService.Journal;
         }
         #endregion

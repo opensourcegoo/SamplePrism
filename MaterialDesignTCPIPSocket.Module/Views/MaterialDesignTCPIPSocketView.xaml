@@ -9,7 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" >
     <UserControl.Resources>
-        <Style x:Key="TabNavigationButtonStyle" TargetType="Button" 
+        <Style x:Key="TabNavigationButtonStyle" TargetType="Button"
        BasedOn="{StaticResource MaterialDesignFlatButton}">
             <Setter Property="Height" Value="48"/>
             <Setter Property="Padding" Value="24,0"/>
@@ -61,7 +61,7 @@
                         </Grid.RowDefinitions>
                         <!-- 导航按钮 -->
                         <Button Grid.Row="0" Content="{Binding Title}" Background="Transparent" Foreground="{DynamicResource MaterialDesignBody}"
-                                Height="48" Margin="24,0" BorderThickness="0" 
+                                Height="48" Padding="24,0,12,0" BorderThickness="0" 
                                 Command="{Binding DataContext.NavigateCommand,RelativeSource={RelativeSource AncestorType=ItemsControl}}" 
                                 CommandParameter="{Binding .}"/>
                         <!--底部指示器-->
