@@ -26,16 +26,26 @@ namespace MaterialDesignTCPIPSocket.Module.ViewModels
                 listenSocket.Bind(ipep); // 绑定端口
                 listenSocket.Listen(10); // 开始监听，最大连接数为10
                 Console.WriteLine("accept incoming connection");
+
+                //套接字客户端也是我们要将数据发回去的对象
                 Socket client = null;
+                //int totalReceiveNum = 0;
                 await Task.Run(() =>
                 {
                     client = listenSocket.Accept(); // 同步接受连接（会阻塞线程）
                 });
-            
 
                 byte[] buffer = new byte[1024];
-                int totalReceiveNum = client.Receive(buffer);
-                string receiveStr = Encoding.UTF8.GetString(buffer, 0, totalReceiveNum);
+                while (true)
+                {
+                    int totalReceiveNum = client.Receive(buffer);
+                    string receiveStr = Encoding.UTF8.GetString(buffer, 0, totalReceiveNum);
+                    string receiveInfo = Encoding.ASCII.GetString(buffer, 0, totalReceiveNum);
+                    client.Send(buffer);
+                    if (receiveStr == "x")
+                        break;
+                    Array.Clear(buffer, 0, buffer.Length);
+                }
 
 
                 //listenSocket.BeginAccept(new AsyncCallback(AcceptCallback), listenSocket); // 异步接受连接
