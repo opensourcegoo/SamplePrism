@@ -29,24 +29,29 @@ namespace MaterialDesignTCPIPSocket.Module.ViewModels
 
                 //套接字客户端也是我们要将数据发回去的对象
                 Socket client = null;
-                //int totalReceiveNum = 0;
+                int totalReceiveNum = 0;
                 await Task.Run(() =>
                 {
                     client = listenSocket.Accept(); // 同步接受连接（会阻塞线程）
                 });
-
+                
                 byte[] buffer = new byte[1024];
+                //加for循环来持续接收数据，直到收到特定的退出指令（例如"x"）为止
+                //在这个循环中，我们使用client.Receive方法来接收数据，并将接收到的数据转换为字符串进行处理。每次接收完数据后，我们将其发送回客户端。循环会一直持续，直到收到特定的退出指令（例如"x"）为止。
+                //清理缓冲区和重置接收数量，以准备下一次接收数据
                 while (true)
                 {
-                    int totalReceiveNum = client.Receive(buffer);
+                    totalReceiveNum = client.Receive(buffer);
                     string receiveStr = Encoding.UTF8.GetString(buffer, 0, totalReceiveNum);
                     string receiveInfo = Encoding.ASCII.GetString(buffer, 0, totalReceiveNum);
-                    client.Send(buffer);
+                    client.Send(buffer,totalReceiveNum,SocketFlags.None);
                     if (receiveStr == "x")
                         break;
                     Array.Clear(buffer, 0, buffer.Length);
+                    totalReceiveNum = 0;
                 }
 
+                
 
                 //listenSocket.BeginAccept(new AsyncCallback(AcceptCallback), listenSocket); // 异步接受连接
             });
