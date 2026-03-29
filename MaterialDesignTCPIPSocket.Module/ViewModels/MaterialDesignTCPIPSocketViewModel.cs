@@ -77,7 +77,7 @@ namespace MaterialDesignTCPIPSocket.Module.ViewModels
         /// OnNavigatedFrom的使用
         /// <1>一般用来停止当前页面的某些操作(停止Timer定时器)
         /// <2>取消异步 _cts?.Cancel()，并且在异步方法中捕获异常，避免页面被销毁后异步方法继续执行引发异常
-        /// <3>解除事件订阅，避免内存泄漏_eventAggregator.GetEvent<DataChangedEvent>().Unsubscribe(OnDataChanged);
+        /// <3>解除事 件订阅，避免内存泄漏_eventAggregator.GetEvent<DataChangedEvent>().Unsubscribe(OnDataChanged);
         /// <4>保存当前页面的状态等
         /// Prism的导航 ≠ 页面切换不是简单的页面切换，而是一个完整的导航过程，涉及到页面的创建、销毁、状态管理等多个方面。OnNavigatedFrom方法是这个过程中非常重要的一环，它提供了一个机会，让开发者在页面即将被导航离开时执行一些必要的操作，以确保应用程序的稳定性和性能。
         /// 本质上是 View Activation / Deactivation（激活/失活），OnNavigatedFrom 本质：Deactivate Hook（失活钩子）
