@@ -111,16 +111,7 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-
         <ContentControl Grid.Row="1" prism:RegionManager.RegionName="SubContentRegion"/>
-
-
-
-
-
-
-
-
 
         <!--<Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

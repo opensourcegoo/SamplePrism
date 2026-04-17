@@ -13,7 +13,7 @@ namespace SamplePrism.Services
     {
         public void ShowDialog(string name, IDialogParameters parameters, DialogCallback callback)
         {
-            
+               
         }
     }
 }
