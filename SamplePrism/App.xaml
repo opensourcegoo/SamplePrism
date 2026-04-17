@@ -30,7 +30,6 @@
                 -->
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ObsoleteBrushes.xaml" />
                 <ResourceDictionary Source="/MaterialDesignButtons.Module;component/Resource/MaterialDesignTheme.PopupBox.xaml"/>
-
                 <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Transitions.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
