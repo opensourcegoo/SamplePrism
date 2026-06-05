@@ -12,6 +12,15 @@ namespace MaterialDesignTCPIPSocket.Module.ViewModels
     {
         #region Command
         public DelegateCommand SocketListen1Command { get; set; }
+
+        private string _infoName = string.Empty;
+
+        public string InfoName
+        {
+            get => _infoName;
+            set => SetProperty(ref _infoName, value);
+        }
+
         #endregion
 
         /// <summary>
@@ -19,8 +28,8 @@ namespace MaterialDesignTCPIPSocket.Module.ViewModels
         /// </summary>
         public SocketBaseViewModel()
         {
+            InfoName = "213";
             SocketListen1Command = new DelegateCommand(async () =>
-
             {
                 Socket? listenSocket = null;
                 try
@@ -35,24 +44,45 @@ namespace MaterialDesignTCPIPSocket.Module.ViewModels
                     Console.WriteLine("accept incoming connection");
 
                     //套接字客户端也是我们要将数据发回去的对象
-                    
+
                     while (true)
-                    { 
-                        
+                    {
                         Socket? client = await listenSocket.AcceptAsync();
+                        #region MyRegion
                         //加for循环来持续接收数据，直到收到特定的退出指令（例如"x"）为止
                         //在这个循环中，我们使用client.Receive方法来接收数据，并将接收到的数据转换为字符串进行处理。每次接收完数据后，我们将其发送回客户端。循环会一直持续，直到收到特定的退出指令（例如"x"）为止。
                         //清理缓冲区和重置接收数量，以准备下一次接收数据
-                        _ = Task.Run(async () => //不关心这个任务的结果，所以使用_来丢弃它。这样可以避免编译器警告，同时也表明我们不需要等待这个任务完成。
+                        //不关心这个任务的结果，所以使用_来丢弃它。这样可以避免编译器警告，同时也表明我们不需要等待这个任务完成。 
+                        #endregion
+                        _ = Task.Run(async () =>
                           {
                               while (true)
                               {
                                   byte[] buffer = new byte[1024];
                                   int totalReceiveNum = await client.ReceiveAsync(buffer);
                                   string receiveStr = Encoding.UTF8.GetString(buffer, 0, totalReceiveNum);
+                                  InfoName = receiveStr;
                                   //string receiveInfo = Encoding.ASCII.GetString(buffer, 0, totalReceiveNum);
                                   //client.Send(buffer, totalReceiveNum, SocketFlags.None);
-                                  await client.SendAsync(buffer.AsMemory(0, totalReceiveNum)); //推荐使用异步发送数据，以避免阻塞线程
+                                  string command = receiveStr.Trim().TrimEnd('\r', '\n').ToUpper();
+
+                                  string response = command switch
+                                  {
+                                      "*OPC?" => "1\n",
+                                      "*STB?" => "0\n",
+                                      "*IDN?" => "MyInstrument,Model1,SN001,FW1.0\n",
+                                      "*CLS" => "",
+                                      "*RST" => "",
+                                      "*Uni" => InfoName = "UNITY",
+                                      "X" => "",   // 退出命令
+                                      _ => $"UNKNOWN:{receiveStr}\n"  // 其他命令，按需修改
+                                  };
+                                  if (!string.IsNullOrEmpty(response))
+                                  {
+                                      byte[] sendBuffer = Encoding.UTF8.GetBytes(response);
+                                      await client.SendAsync(sendBuffer.AsMemory(0, sendBuffer.Length));
+                                  }
+                                  //await client.SendAsync(buffer.AsMemory(0, totalReceiveNum)); //推荐使用异步发送数据，以避免阻塞线程
                                   if (receiveStr == "x")
                                       break;
                                   Array.Clear(buffer, 0, buffer.Length);

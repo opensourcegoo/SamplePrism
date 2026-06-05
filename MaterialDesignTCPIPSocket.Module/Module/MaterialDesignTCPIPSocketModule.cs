@@ -18,6 +18,7 @@ namespace MaterialDesignTCPIPSocket.Module
             containerRegistry.RegisterForNavigation<TestGoBackView, TestGoBackViewModel>();
             containerRegistry.RegisterForNavigation<TestPuschView, TestPuschViewModel>();
             containerRegistry.RegisterForNavigation<TestPuschView>();// 视图注册到容器中，导航时会自动创建实例,无需再注册一次ViewModel
+            //containerRegistry.Register<SocketBaseView, SocketBaseViewModel>();
         }
     }
 }

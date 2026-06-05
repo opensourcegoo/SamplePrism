@@ -6,8 +6,9 @@
              xmlns:local="clr-namespace:MaterialDesignTCPIPSocket.Module.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="{x:Null}">
-        <Button Content="SocketListen1" Command="{Binding SocketListen1Command}"  HorizontalAlignment="Left" Margin="98,50,0,0" VerticalAlignment="Top"/>
+    <Grid>
+        <Button Content="SocketListen1" Command="{Binding SocketListen1Command}" Background="Red" HorizontalAlignment="Left" Margin="98,50,0,0" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Height="54" Foreground="Blue" FontSize="15" TextWrapping="Wrap" Text="{Binding InfoName}" VerticalAlignment="Top" Width="190" Margin="32,87,0,0"/>
     </Grid>
 </UserControl>
 
