@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DryIoc.Messages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -56,36 +57,39 @@ namespace MaterialDesignTCPIPSocket.Module.ViewModels
                         #endregion
                         _ = Task.Run(async () =>
                           {
-                              while (true)
+                              while (client.Connected)
                               {
                                   byte[] buffer = new byte[1024];
                                   int totalReceiveNum = await client.ReceiveAsync(buffer);
                                   string receiveStr = Encoding.UTF8.GetString(buffer, 0, totalReceiveNum);
                                   InfoName = receiveStr;
                                   //string receiveInfo = Encoding.ASCII.GetString(buffer, 0, totalReceiveNum);
-                                  //client.Send(buffer, totalReceiveNum, SocketFlags.None);
+                                  Random random = new Random();
+                                  int randomValue = random.Next(40, 101);
+                                  byte[] senddata = BitConverter.GetBytes(randomValue);
+                                  await client.SendAsync(senddata);
                                   string command = receiveStr.Trim().TrimEnd('\r', '\n').ToUpper();
 
-                                  string response = command switch
-                                  {
-                                      "*OPC?" => "1\n",
-                                      "*STB?" => "0\n",
-                                      "*IDN?" => "MyInstrument,Model1,SN001,FW1.0\n",
-                                      "*CLS" => "",
-                                      "*RST" => "",
-                                      "*Uni" => InfoName = "UNITY",
-                                      "X" => "",   // 退出命令
-                                      _ => $"UNKNOWN:{receiveStr}\n"  // 其他命令，按需修改
-                                  };
-                                  if (!string.IsNullOrEmpty(response))
-                                  {
-                                      byte[] sendBuffer = Encoding.UTF8.GetBytes(response);
-                                      await client.SendAsync(sendBuffer.AsMemory(0, sendBuffer.Length));
-                                  }
-                                  //await client.SendAsync(buffer.AsMemory(0, totalReceiveNum)); //推荐使用异步发送数据，以避免阻塞线程
-                                  if (receiveStr == "x")
-                                      break;
-                                  Array.Clear(buffer, 0, buffer.Length);
+                                  //string response = command switch
+                                  //{
+                                  //    "*OPC?" => "1\n",
+                                  //    "*STB?" => "0\n",
+                                  //    "*IDN?" => "MyInstrument,Model1,SN001,FW1.0\n",
+                                  //    "*CLS" => "",
+                                  //    "*RST" => "",
+                                  //    "*Uni" => InfoName = "UNITY",
+                                  //    "X" => "",   // 退出命令
+                                  //    _ => $"UNKNOWN:{receiveStr}\n"  // 其他命令，按需修改
+                                  //};
+                                  //if (!string.IsNullOrEmpty(response))
+                                  //{
+                                  //    byte[] sendBuffer = Encoding.UTF8.GetBytes(response);
+                                  //    await client.SendAsync(sendBuffer.AsMemory(0, sendBuffer.Length));
+                                  //}
+                                  ////await client.SendAsync(buffer.AsMemory(0, totalReceiveNum)); //推荐使用异步发送数据，以避免阻塞线程
+                                  //if (receiveStr == "x")
+                                  //    break;
+                                  //Array.Clear(buffer, 0, buffer.Length);
                                   totalReceiveNum = 0;
                               }
                           });

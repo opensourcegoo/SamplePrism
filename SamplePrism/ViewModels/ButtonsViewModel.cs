@@ -24,7 +24,6 @@ namespace SamplePrism.ViewModels
 
         #endregion
 
-
         #region Method
         private void ExecuteDismissCommand()
         {
@@ -32,7 +31,6 @@ namespace SamplePrism.ViewModels
         }
 
         #endregion
-
 
     }
 }
